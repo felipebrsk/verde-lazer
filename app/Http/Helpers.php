@@ -142,5 +142,16 @@ class Helper
             return 0;
         }
     }
+
+    // Collection with all products in wishlist
+    public static function getAllProductFromWishlist($user_id = '')
+    {
+        if (Auth::check()) {
+            if ($user_id == "") Auth::id();
+            return Wishlist::with('product')->where('user_id', $user_id)->where('cart_id', null)->get();
+        }else {
+            return 0;
+        }
+    }
 }
 ?>
