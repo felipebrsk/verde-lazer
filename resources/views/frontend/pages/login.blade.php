@@ -56,11 +56,11 @@
                                         <button class="btn" type="submit">Login</button>
                                         <a href="{{ route('register.form') }}" class="btn">Cadastrar</a>
                                         OU
-                                        <a href="#" class="btn btn-facebook"><i
+                                        <a href="{{ route('login.redirect', 'facebook') }}" class="btn btn-facebook"><i
                                                 class="fab fa-facebook"></i></a>
-                                        <a href="#" class="btn btn-github"><i
+                                        <a href="{{ route('login.redirect', 'github') }}" class="btn btn-github"><i
                                                 class="fab fa-github"></i></a>
-                                        <a href="#" class="btn btn-google"><i
+                                        <a href="{{ route('login.redirect', 'google') }}" class="btn btn-google"><i
                                                 class="fab fa-google"></i></a>
 
                                     </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,7 +20,12 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false]);
 
+// Income section to call orders earning function
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
+
+// Socialite 
+Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
+Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');
 
 // Users section
 Route::prefix('/user')->group(function(){
