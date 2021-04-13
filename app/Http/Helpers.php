@@ -102,5 +102,11 @@ class Helper
             return 0;
         }
     }
+
+    // Relationship cart with product
+    public function product()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }
 ?>
