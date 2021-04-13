@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Message;
+use App\Models\PostCategory;
 use App\Models\PostTag;
 
 class Helper
@@ -72,8 +73,15 @@ class Helper
         if ($option = 'all'){
             return PostTag::orderBy('id', 'DESC')->get();
         }
-        return PostTag::has('posts')->orderBt('id', 'DESC')->get();
+        return PostTag::has('posts')->orderBy('id', 'DESC')->get();
     }
-    
+
+    public static function postCategoryList($option = 'all')
+    {
+        if ($option = 'all'){
+            return PostCategory::orderBy('id', 'DESC')->get();
+        }
+        return PostCategory::has('posts')->orderBy('id', 'DESC')->get();
+    }
 }
 ?>
