@@ -68,7 +68,7 @@ class Helper
     // Collection with the list of products categories
     public static function productCategoryList($option = 'all')
     {
-        if ($option = 'all'){
+        if ($option = 'all') {
             return Category::orderBy('id', 'DESC')->get();
         }
         return Category::has('products')->orderBy('id', 'DESC')->get();
@@ -77,7 +77,7 @@ class Helper
     // Collection with the tag list of posts in blog section
     public static function postTagList($option = 'all')
     {
-        if ($option = 'all'){
+        if ($option = 'all') {
             return PostTag::orderBy('id', 'DESC')->get();
         }
         return PostTag::has('posts')->orderBy('id', 'DESC')->get();
@@ -86,7 +86,7 @@ class Helper
     // Collection with the category list of posts in blog section
     public static function postCategoryList($option = 'all')
     {
-        if ($option = 'all'){
+        if ($option = 'all') {
             return PostCategory::orderBy('id', 'DESC')->get();
         }
         return PostCategory::has('posts')->orderBy('id', 'DESC')->get();
@@ -95,10 +95,10 @@ class Helper
     // Count the quantity of products in cart section
     public static function cartCount($user_id = '')
     {
-        if (Auth::check()){
+        if (Auth::check()) {
             if ($user_id == "") $user_id = Auth::id();
             return Cart::where('user_id', $user_id)->where('order_id', null)->sum('quantity');
-        }else{
+        } else {
             return 0;
         }
     }
@@ -107,6 +107,17 @@ class Helper
     public function product()
     {
         return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    // Collection with all products from the cart
+    public static function getAllProductFromCart($user_id = '')
+    {
+        if (Auth::check()) {
+            if ($user_id == "") $user_id = Auth::id();
+            return Cart::with('product')->where('user_id', $user_id)->where('order_id', null)->get();
+        } else {
+            return 0;
+        }
     }
 }
 ?>
