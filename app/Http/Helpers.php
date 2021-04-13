@@ -119,5 +119,16 @@ class Helper
             return 0;
         }
     }
+
+    // Total amount from the cart
+    public static function totalCartPrice($user_id = '')
+    {
+        if (Auth::check()) {
+            if($user_id == "") Auth::id();
+            return Cart::where('user_id', $user_id)->where('order_id', null)->sum('amount');
+        }else {
+            return 0;
+        }
+    }
 }
 ?>
