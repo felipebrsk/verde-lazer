@@ -176,6 +176,16 @@ class Helper
         return number_format((float)($order_price + $shipping_price), 2, '.', '');
     }
 
-    
+    // Admin dashboard menu
+    public static function earningPerMonth()
+    {
+        $month_data = Order::where('status', 'Locado')->get();
+
+        $price = 0;
+        foreach ($month_data as $data) {
+            $price = $data->cart_info->sum('price');
+        }
+        return number_format((float)($price), 2, '.', '');
+    }
 }
 ?>
