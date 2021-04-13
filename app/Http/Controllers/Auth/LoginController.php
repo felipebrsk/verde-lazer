@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Session;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -50,5 +52,27 @@ class LoginController extends Controller
     public function redirect($provider)
     {
         return Socialite::driver($provider)->redirect();
+    }
+
+    public function Callback($provider)
+    {
+        $userSocial = Socialite::driver($provider)->stateless()->user();
+        $users = User::where(['email' => $userSocial->getEmail()])->first();
+
+        if ($users) {
+            Auth::login($users);
+            Session::put('user', $userSocial->getEmail());
+
+            return redirect()->route('home')->with('success', 'Login através do(a) ' . $provider . ' efetuado com sucesso.');
+        }else {
+            User::create([
+                'name' => $userSocial->getName(),
+                'email' => $userSocial->getEmail(),
+                'image' => $userSocial->getAvatar(),
+                'provider' => $provider,
+            ]);
+
+            return redirect()->route('home');
+        }
     }
 }
