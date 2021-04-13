@@ -21,7 +21,7 @@ class Post extends Model
 
     public function author_info()
     {
-        return $this->hasOne('App\User', 'id', 'added_by');
+        return $this->hasOne(User::class, 'id', 'added_by');
     }
 
     public static function getAllPost()

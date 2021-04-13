@@ -8,7 +8,7 @@
                     <!-- Single Widget -->
                     <div class="single-footer about">
                         <div class="logo">
-                            <a href="{{ route('home') }}" class="text-white" style="font-size: 22px;"><span
+                            <a href="#" class="text-white" style="font-size: 22px;"><span
                                     style="color: rgb(26, 202, 91)">Verde</span> Lazer</a>
                         </div>
                         @php
@@ -30,10 +30,10 @@
                     <div class="single-footer links">
                         <h4>Informação</h4>
                         <ul>
-                            <li><a href="{{ route('about-us') }}">Sobre nós</a></li>
+                            <li><a href="#">Sobre nós</a></li>
                             <li><a href="#">FAQ</a></li>
                             <li><a href="#">Termos e condições</a></li>
-                            <li><a href="{{ route('contact') }}">Contate-nos</a></li>
+                            <li><a href="#">Contate-nos</a></li>
                             <li><a href="#">Ajuda</a></li>
                         </ul>
                     </div>

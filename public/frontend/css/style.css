@@ -3373,7 +3373,7 @@ Version:1.0
 }
 
 .shop.single .form .form-group label span {
-    color: #ff2c18;
+    color: rgb(64, 202, 30);
     display: inline-block;
     position: absolute;
     right: -12px;
@@ -3877,7 +3877,7 @@ Version:1.0
 }
 
 .shop.checkout .form .form-group label span {
-    color: #ff2c18;
+    color: rgb(64, 202, 30);
     display: inline-block;
     position: absolute;
     right: -12px;
@@ -4113,7 +4113,7 @@ Version:1.0
 }
 
 .shop.login .form .form-group label span {
-    color: #ff2c18;
+    color: rgb(64, 202, 30);
     display: inline-block;
     position: absolute;
     right: -12px;
@@ -5512,7 +5512,7 @@ Version:1.0
 }
 
 .blog-single .reply .form-group label span {
-    color: #ff2c18;
+    color: rgb(64, 202, 30);
     display: inline-block;
     position: absolute;
     right: -12px;
@@ -5643,7 +5643,7 @@ Version:1.0
 }
 
 .contact-us .form .form-group label span {
-    color: #ff2c18;
+    color: rgb(64, 202, 30);
     display: inline-block;
     position: absolute;
     right: -12px;
