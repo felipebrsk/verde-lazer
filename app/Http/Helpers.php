@@ -153,5 +153,16 @@ class Helper
             return 0;
         }
     }
+
+    // Get the total amount of the wishlist
+    public static function totalWishlistPrice($user_id = '')
+    {
+        if (Auth::check()) {
+            if ($user_id == "") Auth::id();
+            return Wishlist::where('user_id', $user_id)->where('cart_id', null)->sum('amount');
+        }else {
+            return 0;
+        }
+    }
 }
 ?>
