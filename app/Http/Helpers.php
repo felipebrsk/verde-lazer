@@ -1,17 +1,21 @@
 <?php
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Message;
 use App\Models\PostCategory;
 use App\Models\PostTag;
+use Illuminate\Support\Facades\Auth;
 
 class Helper
 {
+    // Collection with message list
     public static function messageList()
     {
         return Message::whereNull('read_at')->orderBy('created_at', 'desc')->get();
     }
 
+    // Collection with all categories
     public static function getAllCategory()
     {
         $category = new Category();
@@ -19,6 +23,7 @@ class Helper
         return $menu;
     }
 
+    // Function to call the categories with the parent and childs in header menu
     public static function getHeaderCategory()
     {
         $category = new Category();
@@ -60,6 +65,7 @@ class Helper
         }
     }
 
+    // Collection with the list of products categories
     public static function productCategoryList($option = 'all')
     {
         if ($option = 'all'){
@@ -68,6 +74,7 @@ class Helper
         return Category::has('products')->orderBy('id', 'DESC')->get();
     }
 
+    // Collection with the tag list of posts in blog section
     public static function postTagList($option = 'all')
     {
         if ($option = 'all'){
@@ -76,12 +83,24 @@ class Helper
         return PostTag::has('posts')->orderBy('id', 'DESC')->get();
     }
 
+    // Collection with the category list of posts in blog section
     public static function postCategoryList($option = 'all')
     {
         if ($option = 'all'){
             return PostCategory::orderBy('id', 'DESC')->get();
         }
         return PostCategory::has('posts')->orderBy('id', 'DESC')->get();
+    }
+
+    // Count the quantity of products in cart section
+    public static function cartCount($user_id = '')
+    {
+        if (Auth::check()){
+            if ($user_id == "") $user_id = Auth::id();
+            return Cart::where('user_id', $user_id)->where('order_id', null)->sum('quantity');
+        }else{
+            return 0;
+        }
     }
 }
 ?>
