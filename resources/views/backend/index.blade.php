@@ -20,7 +20,8 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Categorias</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{-- {{ \App\Models\Category::countActiveCategory() }}</div> --}}
+                                    {{ \App\Models\Category::countActiveCategory() }}
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-sitemap fa-2x text-gray-300"></i>
@@ -38,7 +39,8 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Produtos</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{-- {{ \App\Models\Product::countActiveProduct() }}</div> --}}
+                                    {{ \App\Models\Product::countActiveProduct() }}
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-cubes fa-2x text-gray-300"></i>
@@ -58,7 +60,8 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
                                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                            {{-- {{ \App\Models\Order::countActiveOrder() }}</div> --}}
+                                            {{ \App\Models\Order::countActiveOrder() }}
+                                        </div>
                                     </div>
 
                                 </div>
@@ -79,7 +82,8 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Posts</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{-- {{ \App\Models\Post::countActivePost() }}</div> --}}
+                                    {{ \App\Models\Post::countActivePost() }}
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-folder fa-2x text-gray-300"></i>
@@ -149,17 +153,15 @@
             }
 
         </script>
-        {{-- line chart --}}
+        
         <script type="text/javascript">
-            const url = "#";
+            const url = "{{ route('product.order.income') }}";
             // Set new default font family and font color to mimic Bootstrap's default styling
             Chart.defaults.global.defaultFontFamily = 'Nunito',
                 '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
             Chart.defaults.global.defaultFontColor = '#858796';
 
             function number_format(number, decimals, dec_point, thousands_sep) {
-                // *     example: number_format(1234.56, 2, ',', ' ');
-                // *     return: '1 234,56'
                 number = (number + '').replace(',', '').replace(' ', '');
                 var n = !isFinite(+number) ? 0 : +number,
                     prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
@@ -236,7 +238,6 @@
                                     ticks: {
                                         maxTicksLimit: 5,
                                         padding: 10,
-                                        // Include a dollar sign in the ticks
                                         callback: function(value, index, values) {
                                             return 'R$' + number_format(value);
                                         }
@@ -271,7 +272,7 @@
                                     label: function(tooltipItem, chart) {
                                         var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label ||
                                             '';
-                                        return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                                        return datasetLabel + ': R$' + number_format(tooltipItem.yLabel);
                                     }
                                 }
                             }

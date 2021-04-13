@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes(['register' => false]);
+
+Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
 
 // Users section
 Route::prefix('/user')->group(function(){
