@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
+use Illuminate\Support\Carbon;
 
 class MessageController extends Controller
 {
@@ -48,7 +49,13 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        $message = Message::findOrFail($id);
+
+        $message->read_at = Carbon::now();
+
+        $message->save();
+
+        return view('backend.message.show')->with('message', $message);
     }
 
     /**
