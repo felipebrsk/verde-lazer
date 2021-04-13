@@ -3,6 +3,7 @@
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Message;
+use App\Models\Order;
 use App\Models\PostCategory;
 use App\Models\PostTag;
 use App\Models\Wishlist;
@@ -164,5 +165,17 @@ class Helper
             return 0;
         }
     }
+
+    // Get the total amount with the shipping and coupon
+    public static function grandPrice($id, $user_id)
+    {
+        $order = Order::findOrFail($id);
+        
+        $shipping_price = (float)$order->shipping->price;
+        $order_price = self::orderPrice($id, $user_id);
+        return number_format((float)($order_price + $shipping_price), 2, '.', '');
+    }
+
+    
 }
 ?>
