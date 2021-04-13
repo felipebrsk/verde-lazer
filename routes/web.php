@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false]);
 
+// Users section
+Route::prefix('/user')->group(function(){
+    Route::view('/login', 'frontend.pages.login')->name('login.form');
+    Route::view('/register', 'frontend.pages.register')->name('register.form');
+});
+
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
 });
