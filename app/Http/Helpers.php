@@ -57,5 +57,13 @@ class Helper
 <?php
         }
     }
+
+    public static function productCategoryList($option = 'all')
+    {
+        if ($option = 'all'){
+            return Category::orderBy('id', 'DESC')->get();
+        }
+        return Category::has('products')->orderBy('id', 'DESC')->get();
+    }
 }
 ?>
