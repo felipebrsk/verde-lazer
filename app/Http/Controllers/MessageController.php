@@ -21,6 +21,18 @@ class MessageController extends Controller
     }
 
     /**
+     *  Get all unread messages.
+     * 
+     *  @return \Illuminate\Http\Response
+     */
+    public function messageFive()
+    {
+        $message = Message::whereNull('read_at')->limit(5)->get();
+
+        return response()->json($message);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

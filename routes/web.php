@@ -43,4 +43,5 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Message
     Route::resource('/message', MessageController::class);
+    Route::get('/message/five', [MessageController::class, 'messageFive'])->name('messages.five');
 });

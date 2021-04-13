@@ -58,7 +58,7 @@
         </li>
 
         <!-- Nav Item - Messages -->
-        <li class="nav-item dropdown no-arrow mx-1" id="messageT" data-url="#">
+        <li class="nav-item dropdown no-arrow mx-1" id="messageT" data-url="{{ route('messages.five') }}">
             @include('backend.message.message')
         </li>
 
