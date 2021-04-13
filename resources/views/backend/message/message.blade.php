@@ -43,7 +43,7 @@
                 @endif
             @endforeach
         </div>
-        <a class="dropdown-item text-center small text-gray-500" href="#">Ver todas as
+        <a class="dropdown-item text-center small text-gray-500" href="{{ route('message.index') }}">Ver todas as
             mensagens</a>
     </div>
 </div>

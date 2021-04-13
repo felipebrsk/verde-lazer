@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,6 +37,10 @@ Route::prefix('/user')->group(function(){
     Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 });
 
+// Admin backend section
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
+
+    // Message
+    Route::resource('/message', MessageController::class);
 });
