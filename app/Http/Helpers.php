@@ -5,6 +5,7 @@ use App\Models\Category;
 use App\Models\Message;
 use App\Models\PostCategory;
 use App\Models\PostTag;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
 class Helper
@@ -126,6 +127,17 @@ class Helper
         if (Auth::check()) {
             if($user_id == "") Auth::id();
             return Cart::where('user_id', $user_id)->where('order_id', null)->sum('amount');
+        }else {
+            return 0;
+        }
+    }
+
+    // Get the quantity of products in wishlist 
+    public static function wishlistCount($user_id = '')
+    {
+        if (Auth::check()) {
+            if ($user_id == "") Auth::id();
+            return Wishlist::where('user_id', $user_id)->where('cart_id', null)->sum('quantity');
         }else {
             return 0;
         }
