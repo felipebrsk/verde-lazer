@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Message;
+use App\Models\PostTag;
 
 class Helper
 {
@@ -65,5 +66,14 @@ class Helper
         }
         return Category::has('products')->orderBy('id', 'DESC')->get();
     }
+
+    public static function postTagList($option = 'all')
+    {
+        if ($option = 'all'){
+            return PostTag::orderBy('id', 'DESC')->get();
+        }
+        return PostTag::has('posts')->orderBt('id', 'DESC')->get();
+    }
+    
 }
 ?>
