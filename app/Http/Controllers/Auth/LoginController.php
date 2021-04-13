@@ -64,7 +64,7 @@ class LoginController extends Controller
             Session::put('user', $userSocial->getEmail());
 
             return redirect()->route('home')->with('success', 'Login através do(a) ' . $provider . ' efetuado com sucesso.');
-        }else {
+        } else {
             User::create([
                 'name' => $userSocial->getName(),
                 'email' => $userSocial->getEmail(),
