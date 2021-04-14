@@ -6,9 +6,8 @@
     <div class="card">
         <h5 class="card-header">Editar configurações gerais</h5>
         <div class="card-body">
-            <form method="post" action="#">
+            <form method="post" action="{{ route('settings.update') }}" enctype="multipart/form-data">
                 @csrf
-                {{-- @method('PATCH') --}}
                 <div class="form-group">
                     <label for="short_des" class="col-form-label">Breve descrição <span class="text-danger">*</span></label>
                     <textarea class="form-control" id="quote"
@@ -27,18 +26,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPhoto" class="col-form-label">Logo <span class="text-danger">*</span></label>
+                    <label for="inputLogo" class="col-form-label">Logo <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <a data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
-                                <i class="fa fa-picture-o"></i> Escolher
-                            </a>
+                            <div>
+                                <input type="file" name="logo" class="custom-file-input" id="customFile"
+                                    value="{{ isset($data->logo) ? $data->logo : old('logo') }}">
+                                <label class="custom-file-label" for="customFile">
+                                    @if ($data->logo)
+                                        {{ $data->logo }}
+                                    @else
+                                        Escolher arquivo
+                                    @endif
+                                </label>
+                            </div>
                         </span>
-                        <input id="thumbnail1" class="form-control" type="text" name="logo"
-                            value="{{ isset($data->logo) ? $data->logo : old('logo') }}">
                     </div>
-                    <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
-
                     @error('logo')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -48,15 +51,19 @@
                     <label for="inputPhoto" class="col-form-label">Foto <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <span class="input-group-btn">
-                            <a data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                <i class="fa fa-picture-o"></i> Escolher
-                            </a>
+                            <div>
+                                <input type="file" name="photo" class="custom-file-input" id="customFile"
+                                    value="{{ isset($data->photo) ? $data->photo : old('photo') }}">
+                                <label class="custom-file-label" for="customFile">
+                                    @if ($data->photo)
+                                        {{ $data->photo }}
+                                    @else
+                                        Escolher arquivo
+                                    @endif
+                                </label>
+                            </div>
                         </span>
-                        <input id="thumbnail" class="form-control" type="text" name="photo"
-                            value="{{ isset($data->photo) ? $data->photo : old('photo') }}">
                     </div>
-                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-
                     @error('photo')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -118,20 +125,22 @@
                 tabsize: 2,
                 height: 150
             });
-        });
 
-        $(document).ready(function() {
             $('#quote').summernote({
                 placeholder: "Escreva uma breve citação...",
                 tabsize: 2,
                 height: 100
             });
-        });
-        $(document).ready(function() {
+
             $('#description').summernote({
                 placeholder: "Escreva um breve detalhe da decrição...",
                 tabsize: 2,
                 height: 150
+            });
+
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
             });
         });
 

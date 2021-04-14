@@ -56,7 +56,8 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     
     // Settings 
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
-    
+    Route::post('/settings/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
+
     // Message
     Route::resource('/message', MessageController::class);
     Route::get('/message/five', [MessageController::class, 'messageFive'])->name('messages.five');

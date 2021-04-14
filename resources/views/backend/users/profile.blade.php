@@ -33,12 +33,12 @@
                         </div>
                         <div class="card-body mt-4 ml-2">
                             <h5 class="card-title text-left"><small><i class="fas fa-user"></i>
-                                    {{ $profile->name }}</small>
+                                    {{ isset($profile->name) ? $profile->name : old('name') }}</small>
                             </h5>
                             <p class="card-text text-left"><small><i class="fas fa-envelope"></i>
-                                    {{ $profile->email }}</small></p>
+                                    {{ isset($profile->email) ? $profile->email : old('email') }}</small></p>
                             <p class="card-text text-left"><small class="text-muted"><i class="fas fa-hammer"></i>
-                                    {{ $profile->role }}</small></p>
+                                    {{ isset($profile->role) ? {{ $profile->role }} : old('role') }}</small></p>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label for="inputTitle" class="col-form-label">Nome</label>
                             <input id="inputTitle" type="text" name="name" placeholder="Insira um nome"
-                                value="{{ $profile->name }}" class="form-control">
+                                value="{{ isset($profile->name) ? $profile->name : old('name') }}" class="form-control">
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label for="inputEmail" class="col-form-label">E-mail</label>
                             <input id="inputEmail" disabled type="email" name="email" placeholder="Insira um e-mail"
-                                value="{{ $profile->email }}" class="form-control">
+                                value="{{ isset($profile->email) ? $profile->email : old('email') }}" class="form-control">
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -67,9 +67,9 @@
                             <label for="inputPhoto" class="col-form-label">Foto</label>
                             <div class="input-group">
                                 <span class="input-group-btn">
-                                    <div class="">
+                                    <div>
                                         <input type="file" name="photo" class="custom-file-input" id="customFile"
-                                            value="{{ $profile->photo }}">
+                                            value="{{ isset($profile->photo) ? $profile->photo : old('photo') }}">
                                         <label class="custom-file-label" for="customFile">
                                             @if ($profile->photo)
                                                 {{ $profile->photo }}

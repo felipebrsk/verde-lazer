@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PasswordUpdateRequest;
+use App\Http\Requests\SettingsUpdateRequest;
 use App\Models\Settings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -109,5 +110,56 @@ class AdminController extends Controller
         $data = Settings::first();
 
         return view('backend.settings')->with('data', $data);
+    }
+
+    /**
+     *  Change settings of website.
+     *  
+     *  @param \App\Http\Requests\SettingsUpdateRequest $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function settingsUpdate(SettingsUpdateRequest $request)
+    {
+        $data = $request->all();
+
+        $settings = Settings::first();
+
+        if ($settings == null){
+            Settings::create($data);
+        }
+
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('frontend/img/' . $filename);
+            \Image::make($image)->resize(2250, 1500)->save($location);
+            if ($settings->logo != null) {
+                Storage::delete($settings->logo);
+                unlink(public_path('frontend/img/' . $settings->logo));
+            }
+            $data['logo'] = $filename;
+        }
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('frontend/img/' . $filename);
+            \Image::make($image)->resize(2250, 1500)->save($location);
+            if ($settings->photo != null) {
+                Storage::delete($settings->photo);
+                unlink(public_path('frontend/img/' . $settings->photo));
+            }
+            $data['photo'] = $filename;
+        }
+
+        $status = $settings->fill($data)->save();
+
+        if ($status) {
+            request()->session()->flash('success', 'Configurações alteradas com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao alterar as configurações. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('admin');
     }
 }
