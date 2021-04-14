@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -32,7 +33,7 @@ class AdminController extends Controller
     }
 
     /**
-     *  Get the data of admin profile.
+     *  Get the data of user profile.
      *  
      *  @return \Illuminate\Http\Response
      */
@@ -41,5 +42,45 @@ class AdminController extends Controller
         $profile = Auth::user();
 
         return view('backend.users.profile')->with('profile', $profile);
+    }
+
+    /**
+     *  Update user profile.
+     *  
+     *  @param \Illuminate\Http\Request $request
+     *  @param int $id
+     *  @return \Illuminate\Http\Response
+     */
+    public function profileUpdate(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->id != Auth::id()) {
+            abort(404);
+        }
+
+        $data = $request->all();
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('/profiles/' . $filename);
+            \Image::make($image)->resize(80, 80)->save($location);
+            if ($user->photo != null) {
+                Storage::delete($user->photo);
+                unlink(public_path('/profiles/' . $user->photo));
+            }
+            $data['photo'] = $filename;
+        }
+
+        $status = $user->fill($data)->save();
+
+        if ($status) {
+            request()->session()->flash('success', 'Perfil atualizado com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao atualizar o perfil. Por favor, tente novamente.');
+        }
+
+        return redirect()->back();
     }
 }
