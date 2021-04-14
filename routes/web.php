@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
@@ -66,4 +67,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     Route::resource('/notification', NotificationController::class);
     Route::view('/notificacoes', 'backend.notification.index')->name('all.notification');
     Route::get('/notificacao/{id}', [NotificationController::class, 'show'])->name('admin.notification');
+
+    // Banner
+    Route::resource('/banners', BannerController::class);
 });
