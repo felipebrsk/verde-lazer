@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false]);
 
+// View routes
+Route::view('contato', 'frontend.pages.contact')->name('contact');
+
 // Income section to call orders earning function
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
 

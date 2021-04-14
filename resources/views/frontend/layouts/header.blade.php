@@ -177,7 +177,7 @@
                                                 <h4><a href="#"
                                                         target="_blank">{{ $data->product['title'] }}</a></h4>
                                                 <p class="quantity">{{ $data->quantity }} x - <span
-                                                        class="amount">${{ number_format($data->price, 2) }}</span></p>
+                                                        class="amount">R${{ number_format($data->price, 2) }}</span></p>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -223,7 +223,7 @@
                                                     href="#">Blog</a></li>
 
                                             <li class="{{ Request::path() == 'contato' ? 'active' : '' }}"><a
-                                                    href="#">Contate-nos</a></li>
+                                                    href="{{ route('contact') }}">Contate-nos</a></li>
                                         </ul>
                                     </div>
                                 </div>
