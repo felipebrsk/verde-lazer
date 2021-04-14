@@ -132,6 +132,9 @@ class BannerController extends Controller
         $status = $banner->delete();
 
         if ($status) {
+            Storage::delete($banner->photo);
+            unlink(public_path('frontend/banners/' . $banner->photo));
+            
             request()->session()->flash('success', 'Banner removido com sucesso.');
         } else {
             request()->session()->flash('error', 'Erro ao deletar o banner. Por favor, tente novamente.');
