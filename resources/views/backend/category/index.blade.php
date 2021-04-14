@@ -11,7 +11,7 @@
         </div>
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary float-left">Lista de categorias</h6>
-            <a href="#" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
+            <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
                 data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Adicionar categoria</a>
         </div>
         <div class="card-body">
@@ -63,11 +63,11 @@
                                     </td>
                                     <td>
                                         @if ($category->photo)
-                                            <img src="{{ $category->photo }}" class="img-fluid" style="max-width:80px"
-                                                alt="{{ $category->photo }}">
+                                            <img src="{{ asset('frontend/categories/' . $category->photo) }}"
+                                                class="img-fluid zoom" style="max-width:80px" alt="{{ $category->photo }}">
                                         @else
-                                            <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="img-fluid"
-                                                style="max-width:80px" alt="avatar.png">
+                                            <img src="{{ asset('backend/img/thumbnail-default.jpg') }}"
+                                                class="img-fluid zoom" style="max-width:80px" alt="avatar.png">
                                         @endif
                                     </td>
                                     <td>
@@ -78,8 +78,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#"
-                                            class="btn btn-primary btn-sm float-left mr-1"
+                                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary btn-sm float-left mr-1"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
                                         <form method="POST" action="#">
@@ -98,7 +97,7 @@
                     <span style="float:right">{{ $categories->links() }}</span>
                 @else
                     <h6 class="text-center">Nenhuma categoria encontrada. Por favor, crie uma categoria clicando <a
-                            href="#">aqui</a>.</h6>
+                            href="{{ route('categories.create') }}">aqui</a>.</h6>
                 @endif
             </div>
         </div>
@@ -106,14 +105,23 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
-integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
-crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap4.min.css"
+        integrity="sha512-PT0RvABaDhDQugEbpNMwgYBCnGCiTZMh9yOzUsJHDgl/dMhD9yjHAwoumnUk3JydV3QTcIkNDuN40CJxik5+WQ=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <style>
         div.dataTables_wrapper div.dataTables_paginate {
             display: none;
+        }
+
+        .zoom {
+            transition: transform .2s;
+            /* Animation */
+        }
+
+        .zoom:hover {
+            transform: scale(3.2);
         }
 
     </style>
