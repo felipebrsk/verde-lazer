@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use Illuminate\Support\Str;
 
 class BannerController extends Controller
 {
@@ -26,7 +27,7 @@ class BannerController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.banner.create');
     }
 
     /**
@@ -37,18 +38,36 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $data = $request->all();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $slug = Str::slug($request->title);
+
+        $count = Banner::where('slug', $slug)->count();
+
+        if ($count > 0) {
+            $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
+        }
+
+        $data['slug'] = $slug;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('frontend/banners/' . $filename);
+            \Image::make($image)->resize(2250, 1500)->save($location);
+            $data['photo'] = $filename;
+        }
+
+        $status = Banner::create($data);
+
+        if ($status) {
+            request()->session()->flash('success', 'Banner adicionado com sucesso.');
+
+        } else {
+            request()->session()->flash('error', 'Erro ao criar o banner. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('banners.index');
     }
 
     /**
@@ -59,7 +78,9 @@ class BannerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+
+        return view('backend.banner.edit', compact('banner'));
     }
 
     /**

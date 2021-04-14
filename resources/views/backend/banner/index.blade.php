@@ -11,7 +11,7 @@
         </div>
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary float-left">Lista de banners</h6>
-            <a href="#" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom"
+            <a href="{{ route('banners.create') }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom"
                 title="Add User"><i class="fas fa-plus"></i> Adicionar um banner</a>
         </div>
         <div class="card-body">
@@ -46,7 +46,7 @@
                                     <td>{{ $banner->slug }}</td>
                                     <td>
                                         @if ($banner->photo)
-                                            <img src="{{ $banner->photo }}" class="img-fluid zoom" style="max-width:80px"
+                                            <img src="{{ asset('frontend/banners/' . $banner->photo) }}" class="img-fluid zoom" style="max-width:80px"
                                                 alt="{{ $banner->photo }}">
                                         @else
                                             <img src="{{ asset('backend/img/thumbnail-default.jpg') }}"
@@ -80,7 +80,7 @@
                     <span style="float:right">{{ $banners->links() }}</span>
                 @else
                     <h6 class="text-center">Nenhum banner encontrado. Por favor, adicione um banner clicando <a
-                            href="#">aqui</a>.</h6>
+                            href="{{ route('banners.create') }}">aqui</a>.</h6>
                 @endif
             </div>
         </div>
@@ -123,7 +123,7 @@
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous"></script>
     <!-- Page level custom scripts -->
-    <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
+    <script src="{{ asset('backend/js/datatables-demo.js') }}"></script>
     <script>
         $('#banner-dataTable').DataTable({
             "columnDefs": [{
