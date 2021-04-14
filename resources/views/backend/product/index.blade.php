@@ -87,7 +87,7 @@
                                         @foreach ($brands as $brand) {{ $brand->title }}
                                         @endforeach
                                     </td> --}}
-                                    <td><a href="#" class="btn btn-sm btn-success">Adicionar</a></td>
+                                    <td><a href="{{ route('galleries.show', $product->id) }}" class="btn btn-sm btn-success">Adicionar</a></td>
                                     <td>
                                         @if ($product->stock > 0)
                                             <span class="badge badge-primary">{{ $product->stock }}</span>
@@ -175,7 +175,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
+    <script src="{{ asset('backend/js/datatables-demo.js') }}"></script>
     <script>
         $('#product-dataTable').DataTable({
             "scrollX": false "columnDefs": [{

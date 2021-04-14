@@ -26,7 +26,7 @@ class BannerRequest extends FormRequest
         return [
             'title' => 'string|required|max:50',
             'description' => 'string|nullable',
-            'photo' => 'string|required',
+            'photo' => 'required',
             'status' => 'required|in:active,inactive',
         ];
     }

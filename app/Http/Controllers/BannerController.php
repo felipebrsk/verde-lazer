@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\BannerRequest;
 
 class BannerController extends Controller
 {
@@ -55,7 +56,7 @@ class BannerController extends Controller
             $image = $request->file('photo');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('frontend/banners/' . $filename);
-            \Image::make($image)->resize(2250, 1000)->save($location);
+            \Image::make($image)->resize(1200, 809)->save($location);
             $data['photo'] = $filename;
         }
 
@@ -101,7 +102,7 @@ class BannerController extends Controller
             $image = $request->file('photo');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('frontend/banners/' . $filename);
-            \Image::make($image)->resize(2250, 1000)->save($location);
+            \Image::make($image)->resize(1200, 809)->save($location);
             if ($banner->photo != null) {
                 Storage::delete($banner->photo);
                 unlink(public_path('frontend/banners/' . $banner->photo));

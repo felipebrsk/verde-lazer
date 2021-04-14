@@ -11,12 +11,12 @@
                                 $settings = DB::table('settings')->get();
                             @endphp
                             <li><i class="fas fa-phone"></i>
-                                @foreach ($settings as $data) 
+                                @foreach ($settings as $data)
                                     {{ $data->phone }}
                                 @endforeach
                             </li>
                             <li><i class="fas fa-envelope"></i>
-                                @foreach ($settings as $data) 
+                                @foreach ($settings as $data)
                                     {{ $data->email }}
                                 @endforeach
                             </li>
@@ -32,19 +32,17 @@
                             </li>
                             @auth
                                 @if (Auth::user()->role == 'admin')
-                                    <li><i class="fas fa-user"></i> <a href="{{ route('admin') }}"
-                                            target="_blank">Área administrativa</a>
+                                    <li><i class="fas fa-user"></i> <a href="{{ route('admin') }}" target="_blank">Área
+                                            administrativa</a>
                                     </li>
                                 @else
-                                    <li><i class="fas fa-user"></i> <a href="#"
-                                            target="_blank">Área administrativa</a>
+                                    <li><i class="fas fa-user"></i> <a href="#" target="_blank">Área administrativa</a>
                                     </li>
                                 @endif
                                 <li><i class="fas fa-power-off"></i> <a href="#">Sair</a></li>
 
                             @else
-                                <li><i class="fas fa-power-off"></i><a href="#">Login /</a> <a
-                                        href="#">Cadastrar</a></li>
+                                <li><i class="fas fa-power-off"></i><a href="#">Login /</a> <a href="#">Cadastrar</a></li>
                             @endauth
                         </ul>
                     </div>
@@ -64,7 +62,8 @@
                         @php
                             $settings = DB::table('settings')->get();
                         @endphp
-                        <a href="#"><img src="@foreach ($settings as $data) {{ asset('/frontend/img/' . $data->logo) }} @endforeach" alt="logo" width="150"></a>
+                        <a href="#"><img src="@foreach ($settings as $data) {{ asset('/frontend/img/' . $data->logo) }} @endforeach"
+                                alt="logo" width="150"></a>
                     </div>
                     <!-- End Logo -->
                     <!-- Search Form -->
@@ -85,14 +84,14 @@
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="search-bar-top">
                         <div class="search-bar">
-                            <select>
-                                <option>Todas</option>
-                                @foreach (Helper::getAllCategory() as $cat)
-                                    <option>{{ $cat->title }}</option>
-                                @endforeach
-                            </select>
-                            <form method="POST" action="#">
+                            <form method="POST" action="{{ route('product.search') }}">
                                 @csrf
+                                <select name="category_search">
+                                    <option>Todas</option>
+                                    @foreach (Helper::getAllCategory() as $cat)
+                                        <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+                                    @endforeach
+                                </select>
                                 <input name="search" placeholder="Pesquise por algo aqui..." type="search">
                                 <button class="btnn" type="submit"><i class="fas fa-search"></i></button>
                             </form>
@@ -130,12 +129,11 @@
                                                 $photo = explode(',', $data->product['photo']);
                                             @endphp
                                             <li>
-                                                <a href="#" class="remove"
-                                                    title="Remove this item"><i class="fas fa-remove"></i></a>
+                                                <a href="#" class="remove" title="Remove this item"><i
+                                                        class="fas fa-remove"></i></a>
                                                 <a class="cart-img" href="#"><img src="{{ $photo[0] }}"
                                                         alt="{{ $photo[0] }}"></a>
-                                                <h4><a href="#"
-                                                        target="_blank">{{ $data->product['title'] }}</a></h4>
+                                                <h4><a href="#" target="_blank">{{ $data->product['title'] }}</a></h4>
                                                 <p class="quantity">{{ $data->quantity }} x - <span
                                                         class="amount">R${{ number_format($data->price, 2) }}</span></p>
                                             </li>
@@ -170,12 +168,11 @@
                                                 $photo = explode(',', $data->product['photo']);
                                             @endphp
                                             <li>
-                                                <a href="#" class="remove"
-                                                    title="Remove this item"><i class="fas fa-remove"></i></a>
+                                                <a href="#" class="remove" title="Remove this item"><i
+                                                        class="fas fa-remove"></i></a>
                                                 <a class="cart-img" href="#"><img src="{{ $photo[0] }}"
                                                         alt="{{ $photo[0] }}"></a>
-                                                <h4><a href="#"
-                                                        target="_blank">{{ $data->product['title'] }}</a></h4>
+                                                <h4><a href="#" target="_blank">{{ $data->product['title'] }}</a></h4>
                                                 <p class="quantity">{{ $data->quantity }} x - <span
                                                         class="amount">R${{ number_format($data->price, 2) }}</span></p>
                                             </li>
@@ -212,12 +209,11 @@
                                     <div class="nav-inner">
                                         <ul class="nav main-menu menu navbar-nav">
                                             <li class="{{ Request::path() == '/' ? 'active' : '' }}"><a
-                                                    href="#">Início</a></li>
+                                                    href="{{ route('home') }}">Início</a></li>
                                             <li class="{{ Request::path() == 'sobre-nos' ? 'active' : '' }}"><a
                                                     href="#">Sobre nós</a></li>
                                             <li class="@if (Request::path()=='chacaras-grids' ||
-                                                Request::path()=='chacaras-listas' ) active @endif"><a href="#">Chácaras</a><span
-                                                    class="new">Novo</span></li>
+                                                Request::path()=='chacaras-listas' ) active @endif"><a href="#">Chácaras</a><span class="new">Novo</span></li>
                                             {{-- {{ Helper::getHeaderCategory() }} --}}
                                             <li class="{{ Request::path() == 'blog' ? 'active' : '' }}"><a
                                                     href="#">Blog</a></li>

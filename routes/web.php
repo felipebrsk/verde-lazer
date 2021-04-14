@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
@@ -25,15 +26,28 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes(['register' => false]);
 
+
 // Full access view routes
 Route::view('contato', 'frontend.pages.contact')->name('contact');
+
+
+// Frontend Routes
+Route::get('/', [FrontendController::class, 'home'])->name('home');
+Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
+
+
 
 // Income section to call orders earning function
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
 
+
 // Socialite 
 Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
 Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');
+
+
+
+
 
 // Users section
 Route::prefix('/user')->group(function(){
@@ -45,6 +59,11 @@ Route::prefix('/user')->group(function(){
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
     Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 });
+
+
+
+
+
 
 // Admin backend section
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
@@ -78,4 +97,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Products
     Route::resource('/products', ProductController::class);
+
+    // Gallery
+    Route::resource('/galleries', GalleryController::class);
 });

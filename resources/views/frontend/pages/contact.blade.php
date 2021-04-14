@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="#">Início<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ route('home') }}">Início<i class="fas fa-arrow-right"></i></a></li>
                             <li class="active"><a href="javascript:void(0);">Contato</a></li>
                         </ul>
                     </div>
