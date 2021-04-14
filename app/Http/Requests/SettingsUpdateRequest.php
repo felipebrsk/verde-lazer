@@ -26,8 +26,8 @@ class SettingsUpdateRequest extends FormRequest
         return [
             'short_des' => 'required|string',
             'description' => 'required|string',
-            'photo' => 'required',
-            'logo' => 'required',
+            'photo' => 'sometimes',
+            'logo' => 'sometimes',
             'address' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',

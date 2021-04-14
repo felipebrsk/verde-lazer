@@ -64,7 +64,7 @@
                         @php
                             $settings = DB::table('settings')->get();
                         @endphp
-                        <a href="#"><img src="@foreach ($settings as $data) {{ $data->logo }} @endforeach" alt="logo" width="150"></a>
+                        <a href="#"><img src="@foreach ($settings as $data) {{ asset('/frontend/img/' . $data->logo) }} @endforeach" alt="logo" width="150"></a>
                     </div>
                     <!-- End Logo -->
                     <!-- Search Form -->

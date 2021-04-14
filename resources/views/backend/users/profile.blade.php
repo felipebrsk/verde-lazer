@@ -38,7 +38,7 @@
                             <p class="card-text text-left"><small><i class="fas fa-envelope"></i>
                                     {{ isset($profile->email) ? $profile->email : old('email') }}</small></p>
                             <p class="card-text text-left"><small class="text-muted"><i class="fas fa-hammer"></i>
-                                    {{ isset($profile->role) ? {{ $profile->role }} : old('role') }}</small></p>
+                                    {{ isset($profile->role) ? $profile->role : old('role') }}</small></p>
                         </div>
                     </div>
                 </div>

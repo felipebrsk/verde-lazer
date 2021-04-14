@@ -62,7 +62,7 @@ class AdminController extends Controller
             abort(404);
         }
 
-        $data = $request->all();
+        $data = $request->except('email');
 
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
@@ -95,7 +95,7 @@ class AdminController extends Controller
      */
     public function changePassword(PasswordUpdateRequest $request)
     {
-        User::findOrFail(Auth::id())->update(['password' => Hash::make($request->new_password)]);
+        User::findOrFail(Auth::id())->update(['password' => Hash::make($request->password)]);
 
         return redirect()->route('admin')->with('success', 'Senha atualizada com sucesso!');
     }
