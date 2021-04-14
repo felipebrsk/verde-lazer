@@ -20,7 +20,7 @@
         </h6>
         @foreach (Auth::user()->unreadNotifications as $notification)
             <a class="dropdown-item d-flex align-items-center" target="_blank"
-                href="{{ route('admin.notification', $notification->id) }}">
+                href="{{ route('notification.show', $notification->id) }}">
                 <div class="mr-3">
                     <div class="icon-circle bg-primary">
                         <i class="fas {{ $notification->data['fas'] }} text-white"></i>
@@ -39,6 +39,6 @@
             @endif
         @endforeach
 
-        <a class="dropdown-item text-center small text-gray-500" href="#">Ver todas as notificações</a>
+        <a class="dropdown-item text-center small text-gray-500" href="{{ route('all.notification') }}">Ver todas as notificações</a>
     </div>
 </div>

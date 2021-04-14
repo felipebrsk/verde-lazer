@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,7 @@ Auth::routes(['register' => false]);
 
 // View routes
 Route::view('contato', 'frontend.pages.contact')->name('contact');
+Route::view('/notificacoes', 'backend.notification.index')->name('all.notification');
 
 // Income section to call orders earning function
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
@@ -33,9 +35,11 @@ Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->
 
 // Users section
 Route::prefix('/user')->group(function(){
+    // Auth
     Route::view('/login', 'frontend.pages.login')->name('login.form');
     Route::view('/register', 'frontend.pages.register')->name('register.form');
 
+    // Auth
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
     Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
 });
@@ -47,4 +51,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     // Message
     Route::resource('/message', MessageController::class);
     Route::get('/message/five', [MessageController::class, 'messageFive'])->name('messages.five');
+
+    // Notification 
+    Route::resource('/notification', NotificationController::class);
 });
