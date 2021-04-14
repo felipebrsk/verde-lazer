@@ -30,4 +30,16 @@ class AdminController extends Controller
 
         return view('backend.index')->with('users', json_encode($array));
     }
+
+    /**
+     *  Get the data of admin profile.
+     *  
+     *  @return \Illuminate\Http\Response
+     */
+    public function profile()
+    {
+        $profile = Auth::user();
+
+        return view('backend.users.profile')->with('profile', $profile);
+    }
 }

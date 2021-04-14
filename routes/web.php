@@ -48,6 +48,9 @@ Route::prefix('/user')->group(function(){
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
 
+    // Profile
+    Route::get('/profile', [AdminController::class, 'profile'])->name('admin-profile');
+
     // Message
     Route::resource('/message', MessageController::class);
     Route::get('/message/five', [MessageController::class, 'messageFive'])->name('messages.five');
