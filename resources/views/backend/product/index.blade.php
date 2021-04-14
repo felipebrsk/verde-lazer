@@ -10,8 +10,8 @@
         </div>
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary float-left">Lista de produtos</h6>
-            <a href="#" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom"
-                title="Add User"><i class="fas fa-plus"></i> Adicionar produto</a>
+            <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
+                data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Adicionar produto</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -79,7 +79,7 @@
                                     </sub>
                                     </td>
                                     <td>{{ $product->is_featured == 1 ? 'Sim' : 'Não' }}</td>
-                                    <td>R${{ $product->price }} /-</td>
+                                    <td>R${{ $product->price }} /dia</td>
                                     <td> {{ $product->discount }}% OFF</td>
                                     <td>{{ $product->size }}</td>
                                     <td>{{ $product->condition }}</td>
@@ -87,8 +87,7 @@
                                         @foreach ($brands as $brand) {{ $brand->title }}
                                         @endforeach
                                     </td> --}}
-                                    <td><a href="#"
-                                            class="btn btn-sm btn-success">Adicionar</a></td>
+                                    <td><a href="#" class="btn btn-sm btn-success">Adicionar</a></td>
                                     <td>
                                         @if ($product->stock > 0)
                                             <span class="badge badge-primary">{{ $product->stock }}</span>
@@ -98,10 +97,7 @@
                                     </td>
                                     <td>
                                         @if ($product->photo)
-                                            @php
-                                                $photo = explode(',', $product->photo);
-                                            @endphp
-                                            <img src="{{ $photo[0] }}" class="img-fluid zoom" style="max-width:80px"
+                                            <img src="{{ asset('frontend/products/' . $product->photo) }}" class="img-fluid zoom" style="max-width:80px"
                                                 alt="{{ $product->photo }}">
                                         @else
                                             <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="img-fluid"
@@ -116,10 +112,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-sm float-left mr-1"
+                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm float-left mr-1"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        <form method="POST" action="#">
+                                        <form method="POST" action="{{ route('products.destroy', [$product->id]) }}">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger btn-sm dltBtn" data-id={{ $product->id }}
@@ -135,7 +131,7 @@
                     <span style="float:right">{{ $products->links() }}</span>
                 @else
                     <h6 class="text-center">Nenhum produto encontrado. Por favor, cadastre um produto clicando <a
-                            href="#">aqui</a>.</h6>
+                            href="{{ route('products.create') }}">aqui</a>.</h6>
                 @endif
             </div>
         </div>
