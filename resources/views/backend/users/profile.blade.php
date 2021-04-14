@@ -24,7 +24,7 @@
                             @if ($profile->photo)
                                 <img class="card-img-top img-fluid roundend-circle mt-4"
                                     style="border-radius:50%;height:80px;width:80px;margin:auto;"
-                                    src="{{ asset('/profiles/' . $profile->photo) }}" alt="profile picture">
+                                    src="{{ asset('profiles/' . $profile->photo) }}" alt="profile picture">
                             @else
                                 <img class="card-img-top img-fluid roundend-circle mt-4"
                                     style="border-radius:50%;height:80px;width:80px;margin:auto;"

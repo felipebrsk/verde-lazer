@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -82,5 +83,18 @@ class AdminController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /**
+     *  Change user password.
+     * 
+     *  @param \App\Http\Requests\PasswordUpdateRequest $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function changePassword(PasswordUpdateRequest $request)
+    {
+        User::findOrFail(Auth::id())->update(['password' => Hash::make($request->new_password)]);
+
+        return redirect()->route('admin')->with('success', 'Senha atualizada com sucesso!');
     }
 }
