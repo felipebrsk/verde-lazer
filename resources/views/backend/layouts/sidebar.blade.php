@@ -44,7 +44,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de banners:</h6>
                 <a class="collapse-item" href="{{ route('banners.index') }}">Banners</a>
-                <a class="collapse-item" href="#">Adicionar banner</a>
+                <a class="collapse-item" href="{{ route('banners.create') }}">Adicionar banner</a>
             </div>
         </div>
     </li>
@@ -65,7 +65,7 @@
         <div id="categoryCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de categorias:</h6>
-                <a class="collapse-item" href="#">Categorias</a>
+                <a class="collapse-item" href="{{ route('categories.index') }}">Categorias</a>
                 <a class="collapse-item" href="#">Adicionar categoria</a>
             </div>
         </div>

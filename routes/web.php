@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
@@ -70,4 +71,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Banner
     Route::resource('/banners', BannerController::class);
+
+    // Category
+    Route::resource('/categories', CategoryController::class);
 });
