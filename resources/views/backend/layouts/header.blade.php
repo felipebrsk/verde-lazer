@@ -85,7 +85,7 @@
                     <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                     Alterar senha
                 </a>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ route('settings') }}">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Configurações
                 </a>

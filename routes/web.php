@@ -54,6 +54,9 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     Route::view('/change-password', 'backend.users.changePassword')->name('change.password.form');
     Route::post('/change-password/update', [AdminController::class, 'changePassword'])->name('password-update');
     
+    // Settings 
+    Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
+    
     // Message
     Route::resource('/message', MessageController::class);
     Route::get('/message/five', [MessageController::class, 'messageFive'])->name('messages.five');

@@ -218,7 +218,7 @@
     </li>
     <!-- General settings -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('settings') }}">
             <i class="fas fa-cog"></i>
             <span>Configurações</span></a>
     </li>
