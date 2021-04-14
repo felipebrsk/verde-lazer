@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use Illuminate\Support\Carbon;
+use App\Events\MessageSent;
 
 class MessageController extends Controller
 {
@@ -40,7 +41,22 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = Message::create($request->all());
+
+        $data = array();
+
+        $data['url'] = route('message.show', $message->id);
+        $data['date'] = $message->created_at->format('F d, Y h:i A');
+        $data['name'] = $message->name;
+        $data['email'] = $message->email;
+        $data['phone'] = $message->phone;
+        $data['message'] = $message->message;
+        $data['subject'] = $message->subject;
+        $data['photo'] = Auth()->user()->photo;
+
+        event(new MessageSent($data));
+
+        exit();
     }
 
     /**
