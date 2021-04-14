@@ -54,4 +54,5 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Notification 
     Route::resource('/notification', NotificationController::class);
+    Route::get('/notificacao/{id}', [NotificationController::class, 'show'])->name('admin.notification');
 });

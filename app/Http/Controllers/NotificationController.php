@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Notification;
 
 class NotificationController extends Controller
 {
@@ -31,6 +32,16 @@ class NotificationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $notification = Notification::findOrFail($id);
+
+        $status = $notification->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Notificação deletada com sucesso.');
+            return back();
+        } else {
+            request()->session()->flash('error', 'Algo errado aconteceu... Tente novamente.');
+            return back();
+        }
     }
 }
