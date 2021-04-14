@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BannerController extends Controller
 {
@@ -54,7 +55,7 @@ class BannerController extends Controller
             $image = $request->file('photo');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('frontend/banners/' . $filename);
-            \Image::make($image)->resize(2250, 1500)->save($location);
+            \Image::make($image)->resize(2250, 1000)->save($location);
             $data['photo'] = $filename;
         }
 
@@ -92,7 +93,30 @@ class BannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+
+        $data = $request->all();
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $location = public_path('frontend/banners/' . $filename);
+            \Image::make($image)->resize(2250, 1000)->save($location);
+            if ($banner->photo != null) {
+                Storage::delete($banner->photo);
+                unlink(public_path('frontend/banners/' . $banner->photo));
+            }
+            $data['photo'] = $filename;
+        }
+
+        $status = $banner->fill($data)->save();
+
+        if ($status) {
+            request()->session()->flash('success', 'Banner atualizado com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao atualizar o banner. Por favor, tente novamente.');
+        }
+        return redirect()->route('banners.index');
     }
 
     /**
@@ -103,6 +127,16 @@ class BannerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $banner = Banner::findOrFail($id);
+
+        $status = $banner->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Banner removido com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao deletar o banner. Por favor, tente novamente.');
+        }
+        
+        return redirect()->route('banners.index');
     }
 }
