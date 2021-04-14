@@ -133,6 +133,18 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+
+        $status = $category->delete();
+
+        if ($status) {
+            Storage::delete($category->photo);
+            unlink(public_path('frontend/categories/' . $category->photo));
+            request()->session()->flash('success', 'Categoria removida com sucesso.');
+        }else {
+            request()->session()->flash('error', 'Ocorreu um erro ao remover a categoria. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('categories.index');
     }
 }
