@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -36,10 +37,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $data = $request->all();
 
@@ -58,7 +59,7 @@ class CategoryController extends Controller
             $image = $request->file('photo');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('frontend/categories/' . $filename);
-            \Image::make($image)->resize(2250, 1000)->save($location);
+            \Image::make($image)->resize(2250, 1500)->save($location);
             $data['photo'] = $filename;
         }
 
@@ -90,11 +91,11 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CategoryRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $category = Category::findOrFail($id);
 
@@ -106,7 +107,7 @@ class CategoryController extends Controller
             $image = $request->file('photo');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             $location = public_path('frontend/categories/' . $filename);
-            \Image::make($image)->resize(2250, 1000)->save($location);
+            \Image::make($image)->resize(2250, 1500)->save($location);
             if ($category->photo != null) {
                 Storage::delete($category->photo);
                 unlink(public_path('frontend/categories/' . $category->photo));

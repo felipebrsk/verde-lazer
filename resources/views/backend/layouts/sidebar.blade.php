@@ -66,7 +66,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de categorias:</h6>
                 <a class="collapse-item" href="{{ route('categories.index') }}">Categorias</a>
-                <a class="collapse-item" href="#">Adicionar categoria</a>
+                <a class="collapse-item" href="{{ route('categories.create') }}">Adicionar categoria</a>
             </div>
         </div>
     </li>
@@ -80,7 +80,7 @@
         <div id="productCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de produtos:</h6>
-                <a class="collapse-item" href="#">Produtos</a>
+                <a class="collapse-item" href="{{ route('products.index') }}">Produtos</a>
                 <a class="collapse-item" href="#">Adicionar produto</a>
             </div>
         </div>

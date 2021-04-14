@@ -1,8 +1,7 @@
 @extends('backend.layouts.master')
-@section('title', '| Categorias')
+@section('title', '| Produtos')
 
 @section('content')
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="row">
             <div class="col-md-12">
@@ -10,21 +9,27 @@
             </div>
         </div>
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary float-left">Lista de categorias</h6>
-            <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
-                data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Adicionar categoria</a>
+            <h6 class="m-0 font-weight-bold text-primary float-left">Lista de produtos</h6>
+            <a href="#" class="btn btn-primary btn-sm float-right" data-toggle="tooltip" data-placement="bottom"
+                title="Add User"><i class="fas fa-plus"></i> Adicionar produto</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                @if (count($categories) > 0)
-                    <table class="table table-bordered" id="banner-dataTable" width="100%" cellspacing="0">
+                @if (count($products) > 0)
+                    <table class="table table-bordered" id="product-dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Título</th>
-                                <th>Slug</th>
-                                <th>É paterna</th>
-                                <th>Categoria paterna</th>
+                                <th>Categoria</th>
+                                <th>É destaque</th>
+                                <th>Valor diário</th>
+                                <th>Desconto</th>
+                                <th>Tamanho</th>
+                                <th>Condição</th>
+                                {{-- <th>Marca</th> --}}
+                                <th>Imagem</th>
+                                <th>Estoque</th>
                                 <th>Foto</th>
                                 <th>Status</th>
                                 <th>Ações</th>
@@ -34,9 +39,15 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Título</th>
-                                <th>Slug</th>
-                                <th>É paterna</th>
-                                <th>Categoria paterna</th>
+                                <th>Categoria</th>
+                                <th>É destaque</th>
+                                <th>Valor diário</th>
+                                <th>Desconto</th>
+                                <th>Tamanho</th>
+                                <th>Condição</th>
+                                {{-- <th>Marca</th> --}}
+                                <th>Imagem</th>
+                                <th>Estoque</th>
                                 <th>Foto</th>
                                 <th>Status</th>
                                 <th>Ações</th>
@@ -44,47 +55,74 @@
                         </tfoot>
                         <tbody>
 
-                            @foreach ($categories as $category)
+                            @foreach ($products as $product)
                                 @php
-                                    $parent_cats = DB::table('categories')
+                                    $sub_cat_info = DB::table('categories')
                                         ->select('title')
-                                        ->where('id', $category->parent_id)
+                                        ->where('id', $product->child_cat_id)
+                                        ->get();
+                                    $brands = DB::table('brands')
+                                        ->select('title')
+                                        ->where('id', $product->brand_id)
                                         ->get();
                                 @endphp
                                 <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>{{ $category->title }}</td>
-                                    <td>{{ $category->slug }}</td>
-                                    <td>{{ $category->is_parent == 1 ? 'Yes' : 'No' }}</td>
-                                    <td>
-                                        @foreach ($parent_cats as $parent_cat)
-                                            {{ $parent_cat->title }}
+                                    <td>{{ $product->id }}</td>
+                                    <td>{{ $product->title }}</td>
+                                    @if (isset($product->cat_info))
+                                        <td>{{ $product->cat_info['title'] }}
+                                    @endif
+                                    <sub>
+                                        @foreach ($sub_cat_info as $data)
+                                            {{ $data->title }}
                                         @endforeach
+                                    </sub>
                                     </td>
+                                    <td>{{ $product->is_featured == 1 ? 'Sim' : 'Não' }}</td>
+                                    <td>R${{ $product->price }} /-</td>
+                                    <td> {{ $product->discount }}% OFF</td>
+                                    <td>{{ $product->size }}</td>
+                                    <td>{{ $product->condition }}</td>
+                                    {{-- <td>
+                                        @foreach ($brands as $brand) {{ $brand->title }}
+                                        @endforeach
+                                    </td> --}}
+                                    <td><a href="#"
+                                            class="btn btn-sm btn-success">Adicionar</a></td>
                                     <td>
-                                        @if ($category->photo)
-                                            <img src="{{ asset('frontend/categories/' . $category->photo) }}"
-                                                class="img-fluid zoom" style="max-width:80px" alt="{{ $category->photo }}">
+                                        @if ($product->stock > 0)
+                                            <span class="badge badge-primary">{{ $product->stock }}</span>
                                         @else
-                                            <img src="{{ asset('backend/img/thumbnail-default.jpg') }}"
-                                                class="img-fluid zoom" style="max-width:80px" alt="avatar.png">
+                                            <span class="badge badge-danger">{{ $product->stock }}</span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($category->status == 'active')
-                                            <span class="badge badge-success">{{ $category->status }}</span>
+                                        @if ($product->photo)
+                                            @php
+                                                $photo = explode(',', $product->photo);
+                                            @endphp
+                                            <img src="{{ $photo[0] }}" class="img-fluid zoom" style="max-width:80px"
+                                                alt="{{ $product->photo }}">
                                         @else
-                                            <span class="badge badge-warning">{{ $category->status }}</span>
+                                            <img src="{{ asset('backend/img/thumbnail-default.jpg') }}" class="img-fluid"
+                                                style="max-width:80px" alt="avatar.png">
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary btn-sm float-left mr-1"
+                                        @if ($product->status == 'active')
+                                            <span class="badge badge-success">{{ $product->status }}</span>
+                                        @else
+                                            <span class="badge badge-warning">{{ $product->status }}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary btn-sm float-left mr-1"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        <form method="POST" action="{{ route('categories.destroy', [$category->id]) }}">
+                                        <form method="POST" action="#">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger btn-sm dltBtn" data-id={{ $category->id }}
+                                            <button class="btn btn-danger btn-sm dltBtn" data-id={{ $product->id }}
                                                 style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                                 data-placement="bottom" title="Delete"><i
                                                     class="fas fa-trash-alt"></i></button>
@@ -94,10 +132,10 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <span style="float:right">{{ $categories->links() }}</span>
+                    <span style="float:right">{{ $products->links() }}</span>
                 @else
-                    <h6 class="text-center">Nenhuma categoria encontrada. Por favor, crie uma categoria clicando <a
-                            href="{{ route('categories.create') }}">aqui</a>.</h6>
+                    <h6 class="text-center">Nenhum produto encontrado. Por favor, cadastre um produto clicando <a
+                            href="#">aqui</a>.</h6>
                 @endif
             </div>
         </div>
@@ -121,7 +159,7 @@
         }
 
         .zoom:hover {
-            transform: scale(3.2);
+            transform: scale(5);
         }
 
     </style>
@@ -143,10 +181,10 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
     <script>
-        $('#banner-dataTable').DataTable({
-            "columnDefs": [{
+        $('#product-dataTable').DataTable({
+            "scrollX": false "columnDefs": [{
                 "orderable": false,
-                "targets": [3, 4, 5]
+                "targets": [10, 11, 12]
             }]
         });
 
