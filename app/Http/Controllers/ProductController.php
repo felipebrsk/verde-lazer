@@ -113,8 +113,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         $data = $request->all();
-
-        $data['is_featured'] = $request->input('is_featured', 0);
+        
+        $data['is_featured'] = isset($request['is_featured']) ? 1 : 0;
         $data['pool'] = isset($request['pool']) ? 1 : 0;
         $data['barbecue'] = isset($request['barbecue']) ? 1 : 0;
         $data['soccer'] = isset($request['soccer']) ? 1 : 0;
