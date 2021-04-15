@@ -57,7 +57,9 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+
+        return view('backend.coupon.edit', compact('coupon'));
     }
 
     /**
@@ -69,7 +71,17 @@ class CouponController extends Controller
      */
     public function update(CouponRequest $request, $id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+
+        $status = $coupon->update($request->all());
+
+        if ($status) {
+            request()->session()->flash('success', 'Cupom atualizado com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao atualizar o cupom. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('coupons.index');
     }
 
     /**
@@ -80,6 +92,16 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $coupon = Coupon::findOrFail($id);
+
+        $status = $coupon->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Cupom deletado com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao deletar cupom. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('coupons.index');
     }
 }

@@ -69,11 +69,11 @@
                                         {{ date('d/m/Y', strtotime($coupon->expiry_date)) }}
                                     </td>
                                     <td>
-                                        <a href="#"
+                                        <a href="{{ route('coupons.edit', $coupon->id) }}"
                                             class="btn btn-primary btn-sm float-left mr-1"
                                             style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip"
                                             title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                                        <form method="POST" action="#">
+                                        <form method="POST" action="{{ route('coupons.destroy', $coupon->id) }}">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger btn-sm dltBtn" data-id={{ $coupon->id }}
