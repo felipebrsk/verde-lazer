@@ -12,6 +12,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,9 @@ Route::prefix('/user')->group(function () {
     // Wishlist
     Route::view('/wishlist', 'frontend.pages.wishlist')->name('wishlist');
 
+    Route::get('/wishlist/add/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
+    Route::get('wishlist/remove/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
+
     // Auth
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
     Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
@@ -94,7 +98,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Banner
     Route::resource('/banners', BannerController::class);
-    
+
     // Category
     Route::resource('/categories', CategoryController::class);
 

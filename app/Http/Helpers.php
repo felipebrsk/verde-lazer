@@ -138,9 +138,9 @@ class Helper
     public static function wishlistCount($user_id = '')
     {
         if (Auth::check()) {
-            if ($user_id == "") Auth::id();
+            if ($user_id == "") $user_id = Auth::id();
             return Wishlist::where('user_id', $user_id)->where('cart_id', null)->sum('quantity');
-        }else {
+        } else {
             return 0;
         }
     }
@@ -149,9 +149,9 @@ class Helper
     public static function getAllProductFromWishlist($user_id = '')
     {
         if (Auth::check()) {
-            if ($user_id == "") Auth::id();
+            if ($user_id == "") $user_id = Auth::id();
             return Wishlist::with('product')->where('user_id', $user_id)->where('cart_id', null)->get();
-        }else {
+        } else {
             return 0;
         }
     }

@@ -165,7 +165,7 @@
                                                             title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
                                                                 rápida</span></a>
                                                         <a title="Wishlist"
-                                                            href="#"><i class="far fa-heart"></i><span>Adicionar à lista de
+                                                            href="{{ route('add-to-wishlist', $product->slug) }}"><i class="far fa-heart"></i><span>Adicionar à lista de
                                                                 desejos</span></a>
                                                     </div>
                                                     <div class="product-action-2">
@@ -261,7 +261,7 @@
                                                     title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
                                                         rápida</span></a>
                                                 <a title="Wishlist"
-                                                    href="#"><i class="far fa-heart"></i><span>Adicionar à lista de desejos</span></a>
+                                                    href="{{ route('add-to-wishlist', $product->slug) }}"><i class="far fa-heart"></i><span>Adicionar à lista de desejos</span></a>
                                             </div>
                                             <div class="product-action-2">
                                                 <a href="#">Adicionar ao
@@ -593,7 +593,7 @@
                                             </div>
                                             <div class="add-to-cart">
                                                 <button type="submit" class="btn">Adicionar ao carrinho</button>
-                                                <a href="#"
+                                                <a href="{{ route('add-to-wishlist', $product->slug) }}"
                                                     class="btn min"><i class="far fa-heart"></i></a>
                                             </div>
                                         </form>

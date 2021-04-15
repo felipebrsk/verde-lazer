@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="{{ route('home') }}">Início<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ route('home') }}">Início<i class="fas fa-arrow-right"></i></a></li>
                             <li class="active"><a href="javascript:void(0);">Lista de desejos</a></li>
                         </ul>
                     </div>
@@ -27,39 +27,40 @@
                     <!-- Shopping Summery -->
                     <table class="table shopping-summery">
                         <thead>
-                            <tr class="main-hading">
-                                <th>PRODUTO</th>
+                            <tr class="main-hading text-center">
+                                <th>ITEM</th>
                                 <th>NOME</th>
-                                <th class="text-center">TOTAL</th>
-                                <th class="text-center">ADICIONAR AO CARRINHO</th>
-                                <th class="text-center"><i class="ti-trash remove-icon"></i></th>
+                                <th>TOTAL</th>
+                                <th>ADICIONAR AO CARRINHO</th>
+                                <th><i class="fas fa-trash remove-icon"></i></th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (Helper::getAllProductFromWishlist())
                                 @foreach (Helper::getAllProductFromWishlist() as $key => $wishlist)
-                                    <tr>
-                                        <td class="image" data-title="No"><img src="{{ asset('frontend/products/' . $wishlist->photo) }}"
-                                                alt="{{ $wishlist->photo }}"></td>
+                                    <tr class=" text-center">
+                                        <td class="image" data-title="No">
+                                            <img src="{{ asset('frontend/products/' . $wishlist->product->photo) }}" alt="">
+                                        </td>
                                         <td class="product-des" data-title="Description">
                                             <p class="product-name"><a
                                                     href="#">{{ $wishlist->product['title'] }}</a>
                                             </p>
                                             <p class="product-des">{!! $wishlist['summary'] !!}</p>
                                         </td>
-                                        <td class="total-amount" data-title="Total"><span>${{ $wishlist['amount'] }}</span>
+                                        <td class="total-amount" data-title="Total"><span>R${{ $wishlist['amount'] }}</span>
                                         </td>
-                                        <td class="text-center"><a href="#"
+                                        <td><a href="#"
                                                 class='btn text-white'>Adicionar</a></td>
                                         <td class="action" data-title="Remove"><a
-                                                href="#"><i
-                                                    class="ti-trash remove-icon"></i></a></td>
+                                                href="{{ route('wishlist-delete', $wishlist->id) }}"><i
+                                                    class="fas fa-trash remove-icon"></i></a></td>
                                     </tr>
                                 @endforeach
                             @else
-                                <tr>
-                                    <td class="text-center">
-                                        Sua lista de desejos está vazia. <a href="#"
+                                <tr class="text-center">
+                                    <td>
+                                        Sua lista de desejos está vazia. <a href="{{ route('home') }}"
                                             style="color:blue;">Continue conferindo</a>
 
                                     </td>

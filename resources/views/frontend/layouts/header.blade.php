@@ -42,7 +42,8 @@
                                 <li><i class="fas fa-power-off"></i> <a href="#">Sair</a></li>
 
                             @else
-                                <li><i class="fas fa-power-off"></i><a href="#">Login /</a> <a href="#">Cadastrar</a></li>
+                                <li><i class="fas fa-power-off"></i><a href="{{ route('login.form') }}">Login /</a> <a
+                                        href="{{ route('register.form') }}">Cadastrar</a></li>
                             @endauth
                         </ul>
                     </div>
@@ -125,14 +126,11 @@
                                     </div>
                                     <ul class="shopping-list">
                                         @foreach (Helper::getAllProductFromWishlist() as $data)
-                                            @php
-                                                $photo = explode(',', $data->product['photo']);
-                                            @endphp
                                             <li>
-                                                <a href="#" class="remove" title="Remove this item"><i
-                                                        class="fas fa-remove"></i></a>
-                                                <a class="cart-img" href="#"><img src="{{ $photo[0] }}"
-                                                        alt="{{ $photo[0] }}"></a>
+                                                <a href="{{ route('wishlist-delete', $data->id) }}" class="remove" title="Remove this item"><i
+                                                        class="fas fa-trash"></i></a>
+                                                <a class="cart-img" href="#"><img src="{{ asset('frontend/products/' . $data->product->photo) }}"
+                                                        alt="{{ $data->product->photo }}"></a>
                                                 <h4><a href="#" target="_blank">{{ $data->product['title'] }}</a></h4>
                                                 <p class="quantity">{{ $data->quantity }} x - <span
                                                         class="amount">R${{ number_format($data->price, 2) }}</span></p>
