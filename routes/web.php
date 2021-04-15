@@ -94,9 +94,12 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Banner
     Route::resource('/banners', BannerController::class);
-
+    
     // Category
     Route::resource('/categories', CategoryController::class);
+
+    // Ajax for sub category
+    Route::post('/categories/{id}/child', [CategoryController::class, 'getChildByParent']);
 
     // Products
     Route::resource('/products', ProductController::class);

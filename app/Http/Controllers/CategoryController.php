@@ -148,4 +148,21 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
+
+    /**
+     *  Get child category by parent category.
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function getChildByParent(Request $request)
+    {
+        $child_cat = Category::getChildByParentID($request->id);
+
+        if (count($child_cat) <= 0) {
+            return response()->json(['status' => false, 'msg' => '', 'data' => null]);
+        } else {
+            return response()->json(['status' => true, 'msg' => '', 'data' => $child_cat]);
+        }
+    }
 }

@@ -338,7 +338,7 @@
 
                 // Ajax call
                 $.ajax({
-                    url: "/admin/category/" + cat_id + "/child",
+                    url: "/admin/categories/" + cat_id + "/child",
                     data: {
                         _token: "{{ csrf_token() }}",
                         id: cat_id
@@ -349,7 +349,7 @@
                             response = $.parseJSON(response)
                         }
 
-                        var html_option = "<option value=''>----Select sub category----</option>"
+                        var html_option = "<option value=''>----Selecione a sub categoria----</option>"
                         if (response.status) {
                             var data = response.data;
 
