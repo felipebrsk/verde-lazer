@@ -162,11 +162,10 @@
                                                 <div class="button-head">
                                                     <div class="product-action">
                                                         <a data-toggle="modal" data-target="#{{ $product->id }}"
-                                                            title="Quick View" href="#"><i class=" ti-eye"></i><span>Locação
+                                                            title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
                                                                 rápida</span></a>
                                                         <a title="Wishlist"
-                                                            href="#"><i
-                                                                class=" ti-heart "></i><span>Adicionar à lista de
+                                                            href="#"><i class="far fa-heart"></i><span>Adicionar à lista de
                                                                 desejos</span></a>
                                                     </div>
                                                     <div class="product-action-2">
@@ -259,11 +258,10 @@
                                         <div class="button-head">
                                             <div class="product-action">
                                                 <a data-toggle="modal" data-target="#{{ $product->id }}"
-                                                    title="Quick View" href="#"><i class=" ti-eye"></i><span>Locação
+                                                    title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
                                                         rápida</span></a>
                                                 <a title="Wishlist"
-                                                    href="#"><i
-                                                        class=" ti-heart "></i><span>Adicionar à lista de desejos</span></a>
+                                                    href="#"><i class="far fa-heart"></i><span>Adicionar à lista de desejos</span></a>
                                             </div>
                                             <div class="product-action-2">
                                                 <a href="#">Adicionar ao
@@ -472,17 +470,17 @@
                                                         @if ($rate >= $i) <i
                                                         class="yellow fa fa-star"></i>
                                                     @else
-                                                        <i class="fa fa-star"></i> @endif
+                                                        <i class="far fa-star"></i> @endif
                                                     @endfor
                                                 </div>
                                                 <a href="#"> ({{ $rate_count }} Avaliações de usuários)</a>
                                             </div>
                                             <div class="quickview-stock">
                                                 @if ($product->stock > 0)
-                                                    <span><i class="fa fa-check-circle-o"></i> {{ $product->stock }}
+                                                    <span><i class="fas fa-check-circle"></i> {{ $product->stock }}
                                                         Livre </span>
                                                 @else
-                                                    <span><i class="fa fa-times-circle-o text-danger"></i>
+                                                    <span><i class="far fa-times-circle text-danger"></i>
                                                         {{ $product->stock }} Locado</span>
                                                 @endif
                                             </div>
@@ -532,38 +530,38 @@
                                                     </ul>
                                                     <ul class="d-flex flex-row">
                                                         @if ($product->pool === 1)
-                                                            <li><img src="{{ asset('storage/photos/icons/pool-icon.png') }}"
+                                                            <li><img src="{{ asset('frontend/icons/pool-icon.png') }}"
                                                                     alt="Piscina" title="Piscina" width="20"> <i
-                                                                    class="fa fa-check"></i>
+                                                                    class="fas fa-check"></i>
                                                             </li>
                                                         @endif
 
                                                         @if ($product->barbecue === 1)
                                                             <li class="ml-3"><img
-                                                                    src="{{ asset('storage/photos/icons/barbecue-icon.png') }}"
+                                                                    src="{{ asset('frontend/icons/barbecue-icon.png') }}"
                                                                     alt="Churrasqueira" title="Churrasqueira" width="20"> <i
-                                                                    class="fa fa-check"></i></li>
+                                                                    class="fas fa-check"></i></li>
                                                         @endif
 
                                                         @if ($product->soccer === 1)
                                                             <li class="ml-3"><img
-                                                                    src="{{ asset('storage/photos/icons/gramado-icon.png') }}"
+                                                                    src="{{ asset('frontend/icons/gramado-icon.png') }}"
                                                                     alt="Campo de futebol" title="Campo de futebol"
-                                                                    width="20"> <i class="fa fa-check"></i></li>
+                                                                    width="20"> <i class="fas fa-check"></i></li>
                                                         @endif
 
                                                         @if ($product->air_conditioning === 1)
                                                             <li class="ml-3"><img
-                                                                    src="{{ asset('storage/photos/icons/air-icon.png') }}"
+                                                                    src="{{ asset('frontend/icons/air-icon.png') }}"
                                                                     alt="Ar condicionado" title="Ar condicionado"
-                                                                    width="20"> <i class="fa fa-check"></i></li>
+                                                                    width="20"> <i class="fas fa-check"></i></li>
                                                         @endif
 
                                                         @if ($product->wifi === 1)
                                                             <li class="ml-3"><img
-                                                                    src="{{ asset('storage/photos/icons/wifi-icon.png') }}"
+                                                                    src="{{ asset('frontend/icons/wifi-icon.png') }}"
                                                                     alt="Wi-Fi" title="Wi-Fi" width="20"> <i
-                                                                    class="fa fa-check"></i>
+                                                                    class="fas fa-check"></i>
                                                             </li>
                                                         @endif
                                                     </ul>
@@ -578,7 +576,7 @@
                                                     <div class="button minus">
                                                         <button type="button" class="btn btn-primary btn-number"
                                                             disabled="disabled" data-type="minus" data-field="quant[1]">
-                                                            <i class="ti-minus"></i>
+                                                            <i class="fas fa-minus"></i>
                                                         </button>
                                                     </div>
                                                     <input type="hidden" name="slug" value="{{ $product->slug }}">
@@ -587,7 +585,7 @@
                                                     <div class="button plus">
                                                         <button type="button" class="btn btn-primary btn-number"
                                                             data-type="plus" data-field="quant[1]">
-                                                            <i class="ti-plus"></i>
+                                                            <i class="fas fa-plus"></i>
                                                         </button>
                                                     </div>
                                                 </div>
@@ -596,7 +594,7 @@
                                             <div class="add-to-cart">
                                                 <button type="submit" class="btn">Adicionar ao carrinho</button>
                                                 <a href="#"
-                                                    class="btn min"><i class="ti-heart"></i></a>
+                                                    class="btn min"><i class="far fa-heart"></i></a>
                                             </div>
                                         </form>
                                         <div class="default-social">

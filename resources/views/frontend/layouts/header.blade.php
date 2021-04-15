@@ -83,8 +83,8 @@
                 </div>
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="search-bar-top">
-                        <div class="search-bar">
-                            <form method="POST" action="{{ route('product.search') }}">
+                        <form method="POST" action="{{ route('product.search') }}">
+                            <div class="search-bar">
                                 @csrf
                                 <select name="category_search">
                                     <option>Todas</option>
@@ -94,8 +94,8 @@
                                 </select>
                                 <input name="search" placeholder="Pesquise por algo aqui..." type="search">
                                 <button class="btnn" type="submit"><i class="fas fa-search"></i></button>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-12">
@@ -114,7 +114,7 @@
                                     @endphp
                                 @endforeach
                             @endif
-                            <a href="#" class="single-icon"><i class="far fa-heart"></i> <span
+                            <a href="{{ route('wishlist') }}" class="single-icon"><i class="far fa-heart"></i> <span
                                     class="total-count">{{ Helper::wishlistCount() }}</span></a>
                             <!-- Shopping Item -->
                             @auth

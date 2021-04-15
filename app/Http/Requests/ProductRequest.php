@@ -33,7 +33,6 @@ class ProductRequest extends FormRequest
             'cat_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'child_cat_id' => 'nullable|exists:categories,id',
-            'is_featured' => 'sometimes|in:1',
             'status' => 'required|in:active,inactive',
             'condition' => 'required|in:default,new,hot',
             'price' => 'required|numeric',

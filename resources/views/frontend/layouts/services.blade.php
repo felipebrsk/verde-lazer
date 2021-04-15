@@ -13,7 +13,7 @@
             <div class="col-lg-3 col-md-6 col-12">
                 <!-- Start Single Service -->
                 <div class="single-service">
-                    <i class="fas fa-load"></i>
+                    <i class="fas fa-sync-alt"></i>
                     <h4>Reembolso garantido</h4>
                     <p>para quaisquer transtorno causado pelo locador.</p>
                 </div>

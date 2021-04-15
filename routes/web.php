@@ -50,11 +50,14 @@ Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->
 
 
 // Users section
-Route::prefix('/user')->group(function(){
+Route::prefix('/user')->group(function () {
     // Auth
     Route::view('/login', 'frontend.pages.login')->name('login.form');
     Route::view('/register', 'frontend.pages.register')->name('register.form');
-    
+
+    // Wishlist
+    Route::view('/wishlist', 'frontend.pages.wishlist')->name('wishlist');
+
     // Auth
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
     Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
@@ -68,14 +71,14 @@ Route::prefix('/user')->group(function(){
 // Admin backend section
 Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
-    
+
     // Profile
     Route::get('/profile', [AdminController::class, 'profile'])->name('admin-profile');
     Route::post('/profile/{id}/update', [AdminController::class, 'profileUpdate'])->name('profile-update');
 
     Route::view('/change-password', 'backend.users.changePassword')->name('change.password.form');
     Route::post('/change-password/update', [AdminController::class, 'changePassword'])->name('password-update');
-    
+
     // Settings 
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
     Route::post('/settings/update', [AdminController::class, 'settingsUpdate'])->name('settings.update');
@@ -83,7 +86,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     // Message
     Route::resource('/message', MessageController::class);
     Route::get('/message/five', [MessageController::class, 'messageFive'])->name('messages.five');
-    
+
     // Notification 
     Route::resource('/notification', NotificationController::class);
     Route::view('/notificacoes', 'backend.notification.index')->name('all.notification');
