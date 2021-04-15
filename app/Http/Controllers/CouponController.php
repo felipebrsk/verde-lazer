@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CouponRequest;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 
@@ -26,29 +27,26 @@ class CouponController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.coupon.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CouponRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CouponRequest $request)
     {
-        //
-    }
+        $status = Coupon::create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        if ($status) {
+            request()->session()->flash('success', 'Cupom adicionado com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Erro ao adicionar cupom. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('coupons.index');
     }
 
     /**
@@ -65,11 +63,11 @@ class CouponController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CouponRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CouponRequest $request, $id)
     {
         //
     }

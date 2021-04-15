@@ -10,7 +10,7 @@
         </div>
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary float-left">Lista de cupons</h6>
-            <a href="#" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
+            <a href="{{ route('coupons.create') }}" class="btn btn-primary btn-sm float-right" data-toggle="tooltip"
                 data-placement="bottom" title="Add User"><i class="fas fa-plus"></i> Adicionar novo cupom</a>
         </div>
         <div class="card-body">
@@ -89,7 +89,7 @@
                     <span style="float:right">{{ $coupons->links() }}</span>
                 @else
                     <h6 class="text-center">Nenhum cupom encontrado. Por favor, adicione um cupom clicando <a
-                            href="#">aqui</a>.</h6>
+                            href="{{ route('coupons.create') }}">aqui</a>.</h6>
                 @endif
             </div>
         </div>
