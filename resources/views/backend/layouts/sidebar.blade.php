@@ -81,7 +81,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de produtos:</h6>
                 <a class="collapse-item" href="{{ route('products.index') }}">Produtos</a>
-                <a class="collapse-item" href="#">Adicionar produto</a>
+                <a class="collapse-item" href="{{ route('products.create') }}">Adicionar produto</a>
             </div>
         </div>
     </li>
@@ -206,7 +206,7 @@
         Configurações gerais
     </div>
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('coupons.index') }}">
             <i class="fas fa-table"></i>
             <span>Cupons</span></a>
     </li>

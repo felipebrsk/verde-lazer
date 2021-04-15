@@ -24,6 +24,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    <p>
+                        Caso haja alguma promoção e não esteja com o valor correto, clique em atualizar.
+                    </p>
                     <!-- Shopping Summery -->
                     <table class="table shopping-summery">
                         <thead>
