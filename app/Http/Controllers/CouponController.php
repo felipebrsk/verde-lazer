@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CouponRequest;
+use App\Models\Cart;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CouponController extends Controller
 {
@@ -103,5 +106,59 @@ class CouponController extends Controller
         }
 
         return redirect()->route('coupons.index');
+    }
+
+    /**
+     *  Add a coupon in the user session.
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function couponApply(Request $request)
+    {
+        $coupon = Coupon::where('code', $request->code)->firstOrFail();
+        $date_now = Carbon::now();
+
+        if (!$coupon) {
+            return back()->with('error', 'Cupom inválido. Verifique o código e tente novamente.');
+        }
+
+        if ($coupon->status == 'inactive') {
+            return back()->with('error', 'Esse cupom foi desativado. Tente usar um outro cupom.');
+        }
+
+        if ($coupon->expiry_date < $date_now) {
+            return back()->with('error', 'Esse cupom expirou. Tente usar um outro cupom.');
+        }
+
+        if ($coupon) {
+            $total_price = Cart::where('user_id', Auth::id())->where('order_id', null)->sum('price');
+
+            if (session()->has('coupon')) {
+                return back()->with('error', 'Já há um cupom aplicado no seu carrinho. Remova-o antes de adicionar outro.');
+            }
+
+            session()->put('coupon', [
+                'id' => $coupon->id,
+                'code' => $coupon->code,
+                'value' => $coupon->discount($total_price),
+            ]);
+
+            request()->session()->flash('success', 'Cupom aplicado com sucesso!');
+            return back();
+        }
+    }
+
+    /**
+     *  Remove the coupon from the session.
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function couponRemove(Request $request)
+    {
+        session()->forget('coupon');
+
+        return back()->with('success', 'Cupom removido com sucesso.');
     }
 }

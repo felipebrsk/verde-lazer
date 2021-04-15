@@ -121,7 +121,7 @@
                             <div class="col-lg-8 col-md-5 col-12">
                                 <div class="left">
                                     <div class="coupon">
-                                        <form action="#" method="POST">
+                                        <form action="{{ route('coupons.apply') }}" method="POST">
                                             @csrf
                                             <input name="code" placeholder="Insira um cupom">
                                             <button class="btn">Aplicar</button>
@@ -170,7 +170,7 @@
                                                     R${{ number_format(Session::get('coupon')['value'], 2) }}
                                                 </span>
 
-                                                <form action="#" method="POST">
+                                                <form action="{{ route('coupons.remove') }}" method="POST">
                                                     @csrf
                                                     <button type="submit" style="border: none; background: none;"
                                                         class="mt-2">remover cupom</button>

@@ -55,6 +55,12 @@ Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.or
 
 
 
+// Apply and remove a coupon to a user session
+Route::post('/coupon-add', [CouponController::class, 'couponApply'])->name('coupons.apply');
+Route::post('/coupon-remove', [CouponController::class, 'couponRemove'])->name('coupons.remove');
+
+
+
 // Socialite 
 Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
 Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');
