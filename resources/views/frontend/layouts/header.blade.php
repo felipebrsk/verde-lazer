@@ -122,16 +122,16 @@
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
                                         <span>{{ count(Helper::getAllProductFromWishlist()) }} chácaras</span>
-                                        <a href="#">Ver lista de desejos</a>
+                                        <a href="{{ route('wishlist') }}">Ver lista de desejos</a>
                                     </div>
                                     <ul class="shopping-list">
                                         @foreach (Helper::getAllProductFromWishlist() as $data)
                                             <li>
                                                 <a href="{{ route('wishlist-delete', $data->id) }}" class="remove" title="Remove this item"><i
                                                         class="fas fa-trash"></i></a>
-                                                <a class="cart-img" href="#"><img src="{{ asset('frontend/products/' . $data->product->photo) }}"
+                                                <a class="cart-img" href="{{ route('product-detail', $data->product->slug) }}"><img src="{{ asset('frontend/products/' . $data->product->photo) }}"
                                                         alt="{{ $data->product->photo }}"></a>
-                                                <h4><a href="#" target="_blank">{{ $data->product['title'] }}</a></h4>
+                                                <h4><a href="{{ route('product-detail', $data->product->slug) }}" target="_blank">{{ $data->product['title'] }}</a></h4>
                                                 <p class="quantity">{{ $data->quantity }} x - <span
                                                         class="amount">R${{ number_format($data->price, 2) }}</span></p>
                                             </li>
@@ -151,14 +151,14 @@
                         </div>
 
                         <div class="sinlge-bar shopping">
-                            <a href="#" class="single-icon"><i class="fas fa-shopping-bag"></i> <span
+                            <a href="{{ route('cart') }}" class="single-icon"><i class="fas fa-shopping-bag"></i> <span
                                     class="total-count">{{ Helper::cartCount() }}</span></a>
                             <!-- Shopping Item -->
                             @auth
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
                                         <span>{{ count(Helper::getAllProductFromCart()) }} chácaras</span>
-                                        <a href="#">Ver carrinho</a>
+                                        <a href="{{ route('cart') }}">Ver carrinho</a>
                                     </div>
                                     <ul class="shopping-list">
                                         @foreach (Helper::getAllProductFromCart() as $data)

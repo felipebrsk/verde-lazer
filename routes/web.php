@@ -73,6 +73,9 @@ Route::prefix('/user')->group(function () {
     Route::get('/wishlist/add/{slug}', [WishlistController::class, 'wishlist'])->name('add-to-wishlist')->middleware('user');
     Route::get('wishlist/remove/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
 
+    // Cart section
+    Route::view('carrinho', 'frontend.pages.cart')->name('cart');
+
     // Auth
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');
     Route::post('/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
