@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +75,13 @@ Route::prefix('/user')->group(function () {
     Route::get('wishlist/remove/{id}', [WishlistController::class, 'wishlistDelete'])->name('wishlist-delete');
 
     // Cart section
-    Route::view('carrinho', 'frontend.pages.cart')->name('cart');
+    Route::view('cart', 'frontend.pages.cart')->name('cart');
+
+    Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
+    Route::get('carrinho/remover/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
+
+    Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware('user');
+    Route::post('cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
 
     // Auth
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');

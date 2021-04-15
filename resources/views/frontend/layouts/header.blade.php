@@ -127,7 +127,7 @@
                                     <ul class="shopping-list">
                                         @foreach (Helper::getAllProductFromWishlist() as $data)
                                             <li>
-                                                <a href="{{ route('wishlist-delete', $data->id) }}" class="remove" title="Remove this item"><i
+                                                <a href="{{ route('wishlist-delete', $data->id) }}" class="remove" title="Remover este item"><i
                                                         class="fas fa-trash"></i></a>
                                                 <a class="cart-img" href="{{ route('product-detail', $data->product->slug) }}"><img src="{{ asset('frontend/products/' . $data->product->photo) }}"
                                                         alt="{{ $data->product->photo }}"></a>
@@ -166,11 +166,11 @@
                                                 $photo = explode(',', $data->product['photo']);
                                             @endphp
                                             <li>
-                                                <a href="#" class="remove" title="Remove this item"><i
-                                                        class="fas fa-remove"></i></a>
-                                                <a class="cart-img" href="#"><img src="{{ $photo[0] }}"
-                                                        alt="{{ $photo[0] }}"></a>
-                                                <h4><a href="#" target="_blank">{{ $data->product['title'] }}</a></h4>
+                                                <a href="{{ route('cart-delete', $data->id) }}" class="remove" title="Remover este item"><i
+                                                        class="fas fa-trash"></i></a>
+                                                <a class="cart-img" href="{{ route('product-detail', $data->product->slug) }}"><img src="{{ asset('frontend/products/' . $data->product->photo) }}"
+                                                        alt="{{ asset('frontend/products/' . $data->product->photo) }}"></a>
+                                                <h4><a href="{{ route('product-detail', $data->product->slug) }}" target="_blank">{{ $data->product['title'] }}</a></h4>
                                                 <p class="quantity">{{ $data->quantity }} x - <span
                                                         class="amount">R${{ number_format($data->price, 2) }}</span></p>
                                             </li>

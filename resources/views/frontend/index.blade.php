@@ -170,7 +170,7 @@
                                                     </div>
                                                     <div class="product-action-2">
                                                         <a title="Add to cart"
-                                                            href="#">Adicionar
+                                                            href="{{ route('add-to-cart', $product->slug) }}">Adicionar
                                                             ao carrinho</a>
                                                     </div>
                                                 </div>
@@ -264,7 +264,7 @@
                                                     href="{{ route('add-to-wishlist', $product->slug) }}"><i class="far fa-heart"></i><span>Adicionar à lista de desejos</span></a>
                                             </div>
                                             <div class="product-action-2">
-                                                <a href="#">Adicionar ao
+                                                <a href="{{ route('add-to-cart', $product->slug) }}">Adicionar ao
                                                     carrinho</a>
                                             </div>
                                         </div>
@@ -321,7 +321,7 @@
                                             <div class="list-image overlay">
                                                 <img src="{{ asset('frontend/products/' . $product->photo) }}"
                                                     alt="{{ $product->photo }}" style="height: 150px;">
-                                                <a href="#" class="buy"><i
+                                                <a href="{{ route('add-to-cart', $product->slug) }}" class="buy"><i
                                                         class="fa fa-shopping-bag"></i></a>
                                             </div>
                                         </div>
@@ -568,7 +568,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        <form action="#" method="POST" class="mt-4">
+                                        <form action="{{ route('single-add-to-cart') }}" method="POST" class="mt-4">
                                             @csrf
                                             <div class="quantity">
                                                 <!-- Input Order -->

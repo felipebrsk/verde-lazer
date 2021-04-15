@@ -37,12 +37,13 @@
                             </tr>
                         </thead>
                         <tbody id="cart_item_list">
-                            <form action="#" method="POST">
+                            <form action="{{ route('cart.update') }}" method="POST">
                                 @csrf
                                 @if (Helper::getAllProductFromCart())
                                     @foreach (Helper::getAllProductFromCart() as $key => $cart)
                                         <tr class="text-center">
-                                            <td class="image" data-title="No"><img src="{{ asset('frontend/products/' . $cart->product->photo) }}"
+                                            <td class="image" data-title="No"><img
+                                                    src="{{ asset('frontend/products/' . $cart->product->photo) }}"
                                                     alt="{{ asset('frontend/products/' . $cart->product->photo) }}"></td>
                                             <td class="product-des" data-title="Description">
                                                 <p class="product-name"><a
@@ -77,10 +78,9 @@
                                                 <!--/ End Input Order -->
                                             </td>
                                             <td class="total-amount cart_single_price" data-title="Total"><span
-                                                    class="money">${{ $cart['amount'] }}</span></td>
+                                                    class="money">R${{ $cart['amount'] }}</span></td>
 
-                                            <td class="action" data-title="Remove"><a
-                                                    href="#"><i
+                                            <td class="action" data-title="Remove"><a href="{{ route('cart-delete', $cart->id) }}"><i
                                                         class="fas fa-trash remove-icon"></i></a></td>
                                         </tr>
                                     @endforeach
@@ -190,7 +190,7 @@
                                     </ul>
                                     <div class="button5">
                                         <a href="#" class="btn">Pagamento</a>
-                                        <a href="{{ route('product-grids') }}" class="btn">Continuar procurando</a>
+                                        <a href="{{ route('product-grids') }}" class="btn">Continuar comprando</a>
                                     </div>
                                 </div>
                             </div>
@@ -264,8 +264,12 @@
     </style>
 @endpush
 @push('scripts')
-    <script src="{{ asset('frontend/js/nice-select/js/jquery.nice-select.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/select2/js/select2.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+        integrity="sha512-NqYds8su6jivy1/WLoW8x1tZMRD7/1ZfhWG/jcRQLOzV1k1rIODCpMgoBnar5QXshKJGV7vi0LXLNXPoFsM5Zg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+        integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+        crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $("select.select2").select2();
@@ -279,10 +283,9 @@
                 let cost = parseFloat($(this).find('option:selected').data('price')) || 0;
                 let subtotal = parseFloat($('.order_subtotal').data('price'));
                 let coupon = parseFloat($('.coupon_price').data('price')) || 0;
-                // alert(coupon);
-                $('#order_total_price span').text('$' + (subtotal + cost - coupon).toFixed(2));
-            });
 
+                $('#order_total_price span').text('R$' + (subtotal + cost - coupon).toFixed(2));
+            });
         });
 
     </script>
