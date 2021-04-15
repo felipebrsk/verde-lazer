@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Post;
 use App\Models\Banner;
 use App\Models\Category;
+use App\Models\Brand;
 
 class FrontendController extends Controller
 {
@@ -133,6 +134,110 @@ class FrontendController extends Controller
         } else {
             return view('frontend.pages.product-lists')->with('products', $products->sub_products)->with('recent_products', $recent_products);
         }
+    }
+
+    /**
+     *  See the products in grid.
+     *  
+     *  @return \Illuminate\Http\Response
+     */
+    public function productGrids()
+    {
+        $products = Product::query();
+
+        if (!empty($_GET['category'])) {
+            $slug = explode(',', $_GET['category']);
+
+            $cat_ids = Category::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
+
+            $products->whereIn('cat_id', $cat_ids);
+        }
+
+        if (!empty($_GET['brand'])) {
+            $slugs = explode(',', $_GET['brand']);
+            $brand_ids = Brand::select('id')->whereIn('slug', $slugs)->pluck('id')->toArray();
+            return $brand_ids;
+            $products->whereIn('brand_id', $brand_ids);
+        }
+
+        if (!empty($_GET['sortBy'])) {
+            if ($_GET['sortBy'] == 'title') {
+                $products = $products->where('status', 'active')->orderBy('title', 'ASC');
+            }
+
+            if ($_GET['sortBy'] == 'price') {
+                $products = $products->orderBy('price', 'ASC');
+            }
+        }
+
+        if (!empty($_GET['price'])) {
+            $price = explode('-', $_GET['price']);
+            $products->whereBetween('price', $price);
+        }
+
+        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+        
+        // Sort by number
+        if (!empty($_GET['show'])) {
+            $products = $products->where('status', 'active')->paginate($_GET['show']);
+        } else {
+            $products = $products->where('status', 'active')->paginate(9);
+        }
+        
+        // Sort by name , price, category
+        return view('frontend.pages.product-grids')->with('products', $products)->with('recent_products', $recent_products);
+    }
+
+    /**
+     *  See the products in lists.
+     *  
+     *  @return \Illuminate\Http\Response
+     */
+    public function productLists()
+    {
+        $products = Product::query();
+
+        if (!empty($_GET['category'])) {
+            $slug = explode(',', $_GET['category']);
+
+            $cat_ids = Category::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
+
+            $products->whereIn('cat_id', $cat_ids)->paginate;
+        }
+
+        if (!empty($_GET['brand'])) {
+            $slugs = explode(',', $_GET['brand']);
+            $brand_ids = Brand::select('id')->whereIn('slug', $slugs)->pluck('id')->toArray();
+            return $brand_ids;
+            $products->whereIn('brand_id', $brand_ids);
+        }
+
+        if (!empty($_GET['sortBy'])) {
+            if ($_GET['sortBy'] == 'title') {
+                $products = $products->where('status', 'active')->orderBy('title', 'ASC');
+            }
+
+            if ($_GET['sortBy'] == 'price') {
+                $products = $products->orderBy('price', 'ASC');
+            }
+        }
+
+        if (!empty($_GET['price'])) {
+            $price = explode('-', $_GET['price']);
+            $products->whereBetween('price', $price);
+        }
+
+        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+        
+        // Sort by number
+        if (!empty($_GET['show'])) {
+            $products = $products->where('status', 'active')->paginate($_GET['show']);
+        } else {
+            $products = $products->where('status', 'active')->paginate(6);
+        }
+        
+        // Sort by name , price, category
+        return view('frontend.pages.product-lists')->with('products', $products)->with('recent_products', $recent_products);
     }
 
     /**

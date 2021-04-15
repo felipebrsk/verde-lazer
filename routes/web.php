@@ -39,6 +39,8 @@ Route::post('/product/search', [FrontendController::class, 'productSearch'])->na
 Route::get('/product/category/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
 Route::get('/product/sub-category/{slug}/{sub_slug}', [FrontendController::class, 'productSubCat'])->name('product-sub-cat');
 
+Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
+Route::get('/product-listas', [FrontendController::class, 'productLists'])->name('product-lists');
 
 
 // Income section to call orders earning function
