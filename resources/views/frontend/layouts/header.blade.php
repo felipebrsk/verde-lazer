@@ -209,9 +209,9 @@
                                             <li class="{{ Request::path() == '/' ? 'active' : '' }}"><a
                                                     href="{{ route('home') }}">Início</a></li>
                                             <li class="{{ Request::path() == 'about-us' ? 'active' : '' }}"><a
-                                                    href="#">Sobre nós</a></li>
+                                                    href="{{ route('about-us') }}">Sobre nós</a></li>
                                             <li class="@if (Request::path()== 'product-grids' ||
-                                                Request::path()== 'product-listas' ) active @endif"><a href="#">Chácaras</a><span class="new">Novo</span></li>
+                                                Request::path()== 'product-lists' ) active @endif"><a href="#">Produtos</a><span class="new">Novo</span></li>
                                             {{ Helper::getHeaderCategory() }}
                                             <li class="{{ Request::path() == 'blog' ? 'active' : '' }}"><a
                                                     href="#">Blog</a></li>

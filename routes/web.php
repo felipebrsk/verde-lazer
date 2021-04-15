@@ -28,11 +28,11 @@ use App\Http\Controllers\WishlistController;
 Auth::routes(['register' => false]);
 
 
-// Full access view routes
-Route::view('contato', 'frontend.pages.contact')->name('contact');
-
 
 // Frontend Routes
+Route::view('about-us', 'frontend.pages.about-us')->name('about-us');
+Route::view('contact', 'frontend.pages.contact')->name('contact');
+
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
