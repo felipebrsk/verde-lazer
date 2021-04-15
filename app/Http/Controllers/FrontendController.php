@@ -241,6 +241,64 @@ class FrontendController extends Controller
     }
 
     /**
+     *  Filter the products by sort, category or brand. 
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function productFilter(Request $request)
+    {
+        $data = $request->all();
+        $showURL = "";
+
+        if (!empty($data['show'])) {
+            $showURL .= '&show=' . $data['show'];
+        }
+
+        $sortByURL = '';
+
+        if (!empty($data['sortBy'])) {
+            $sortByURL .= '&sortBy=' . $data['sortBy'];
+        }
+
+        $catURL = "";
+
+        if (!empty($data['category'])) {
+            foreach ($data['category'] as $category) {
+                if (empty($catURL)) {
+                    $catURL .= '&category=' . $category;
+                } else {
+                    $catURL .= ',' . $category;
+                }
+            }
+        }
+
+        $brandURL = "";
+
+        if (!empty($data['brand'])) {
+            foreach ($data['brand'] as $brand) {
+                if (empty($brandURL)) {
+                    $brandURL .= '&brand=' . $brand;
+                } else {
+                    $brandURL .= ',' . $brand;
+                }
+            }
+        }
+
+        $priceRangeURL = "";
+
+        if (!empty($data['price_range'])) {
+            $priceRangeURL .= '&price=' . $data['price_range'];
+        }
+
+        if (request()->is('http://localhost:8000/product-grids')) {
+            return redirect()->route('product-grids', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
+        } else {
+            return redirect()->route('product-lists', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
+        }
+    }
+
+    /**
      *  Search for a specific product.
      * 
      *  @param \Illuminate\Http\Request $request

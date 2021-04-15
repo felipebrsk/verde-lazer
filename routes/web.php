@@ -42,9 +42,13 @@ Route::get('/product/sub-category/{slug}/{sub_slug}', [FrontendController::class
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
 Route::get('/product-listas', [FrontendController::class, 'productLists'])->name('product-lists');
 
+Route::match(['get', 'post'], '/filtros', [FrontendController::class, 'productFilter'])->name('shop.filter');
+
+
 
 // Income section to call orders earning function
 Route::get('/income', [OrderController::class, 'incomeChart'])->name('product.order.income');
+
 
 
 // Socialite 

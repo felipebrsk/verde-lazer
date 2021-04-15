@@ -19,7 +19,7 @@
         </div>
     </div>
     <!-- End Breadcrumbs -->
-    <form action="#" method="POST">
+    <form action="{{ route('shop.filter') }}" method="POST">
         @csrf
         <!-- Product Style 1 -->
         <section class="product-area shop-sidebar shop-list shop section">
@@ -169,7 +169,7 @@
                                         <div class="single-shorter">
                                             <label>Ordenar por: </label>
                                             <select class='sortBy' name='sortBy' onchange="this.form.submit();">
-                                                <option value="">Default</option>
+                                                <option value="">Padrão</option>
                                                 <option value="title" @if (!empty($_GET['sortBy']) && $_GET['sortBy'] == 'title') selected @endif>Nome</option>
                                                 <option value="price" @if (!empty($_GET['sortBy']) && $_GET['sortBy'] == 'price') selected @endif>Preço</option>
                                                 <option value="category" @if (!empty($_GET['sortBy']) && $_GET['sortBy'] == 'category') selected @endif>Categoria</option>
@@ -197,9 +197,6 @@
                                                 <div class="single-product">
                                                     <div class="product-img">
                                                         <a href="#">
-                                                            @php
-                                                                $photo = explode(',', $product->photo);
-                                                            @endphp
                                                             <img class="default-img" src="{{ asset('frontend/products/' . $product->photo) }}"
                                                                 alt="{{ asset('frontend/products/' . $product->photo) }}">
                                                             <img class="hover-img" src="{{ asset('frontend/products/' . $product->photo) }}"
