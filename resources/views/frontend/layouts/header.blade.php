@@ -208,15 +208,15 @@
                                         <ul class="nav main-menu menu navbar-nav">
                                             <li class="{{ Request::path() == '/' ? 'active' : '' }}"><a
                                                     href="{{ route('home') }}">Início</a></li>
-                                            <li class="{{ Request::path() == 'sobre-nos' ? 'active' : '' }}"><a
+                                            <li class="{{ Request::path() == 'about-us' ? 'active' : '' }}"><a
                                                     href="#">Sobre nós</a></li>
-                                            <li class="@if (Request::path()=='chacaras-grids' ||
-                                                Request::path()=='chacaras-listas' ) active @endif"><a href="#">Chácaras</a><span class="new">Novo</span></li>
-                                            {{-- {{ Helper::getHeaderCategory() }} --}}
+                                            <li class="@if (Request::path()== 'product-grids' ||
+                                                Request::path()== 'product-listas' ) active @endif"><a href="#">Chácaras</a><span class="new">Novo</span></li>
+                                            {{ Helper::getHeaderCategory() }}
                                             <li class="{{ Request::path() == 'blog' ? 'active' : '' }}"><a
                                                     href="#">Blog</a></li>
 
-                                            <li class="{{ Request::path() == 'contato' ? 'active' : '' }}"><a
+                                            <li class="{{ Request::path() == 'contact' ? 'active' : '' }}"><a
                                                     href="{{ route('contact') }}">Contate-nos</a></li>
                                         </ul>
                                     </div>

@@ -100,6 +100,42 @@ class FrontendController extends Controller
     }
 
     /**
+     *  Get the products by category.
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function productCat(Request $request)
+    {
+        $products = Category::getProductByCat($request->slug);
+        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+
+        if (request()->is('http://localhost:8000/product-grids')) {
+            return view('frontend.pages.product-grids')->with('products', $products->products)->with('recent_products', $recent_products);
+        } else {
+            return view('frontend.pages.product-lists')->with('products', $products->products)->with('recent_products', $recent_products);
+        }
+    }
+
+    /**
+     *  Get the products by sub categories.
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function productSubCat(Request $request)
+    {
+        $products = Category::getProductBySubCat($request->sub_slug);
+        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+
+        if (request()->is('http://localhost:8000/product-grids')) {
+            return view('frontend.pages.product-grids')->with('products', $products->sub_products)->with('recent_products', $recent_products);
+        } else {
+            return view('frontend.pages.product-lists')->with('products', $products->sub_products)->with('recent_products', $recent_products);
+        }
+    }
+
+    /**
      *  Search for a specific product.
      * 
      *  @param \Illuminate\Http\Request $request

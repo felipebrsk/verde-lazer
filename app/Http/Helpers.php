@@ -37,7 +37,7 @@ class Helper
 ?>
 
             <li>
-                <a href="javascript:void(0);">Categorias<i class="ti-angle-down"></i></a>
+                <a href="javascript:void(0);">Categorias<i class="fas fa-angle-down"></i></a>
                 <ul class="dropdown border-0 shadow">
                     <?php
                     foreach ($menu as $cat_info) {

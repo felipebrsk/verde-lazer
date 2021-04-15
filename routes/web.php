@@ -34,7 +34,10 @@ Route::view('contato', 'frontend.pages.contact')->name('contact');
 
 // Frontend Routes
 Route::get('/', [FrontendController::class, 'home'])->name('home');
+
 Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
+Route::get('/product/category/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
+Route::get('/product/sub-category/{slug}/{sub_slug}', [FrontendController::class, 'productSubCat'])->name('product-sub-cat');
 
 
 
