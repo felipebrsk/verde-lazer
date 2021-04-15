@@ -61,6 +61,10 @@ Route::post('/coupon-remove', [CouponController::class, 'couponRemove'])->name('
 
 
 
+// Blog
+Route::get('/blog', [FrontendController::class, 'blog'])->name('blog');
+
+
 // Socialite 
 Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
 Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');

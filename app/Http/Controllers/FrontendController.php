@@ -319,26 +319,22 @@ class FrontendController extends Controller
      *  @param \Illuminate\Http\Request $request
      *  @return \Illuminate\Http\Response
      */
-    // public function productSearch(Request $request)
-    // {
-    //     $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+    public function productSearch(Request $request)
+    {
+        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
 
-    //     $query = Product::query();
+        $query = Product::query();
 
-    //     if ($request->filled('search')) {
-    //         $query->where('title', 'like', '%' . $request->search . '%')
-    //             ->orwhere('slug', 'like', '%' . $request->search . '%')
-    //             ->orwhere('description', 'like', '%' . $request->search . '%')
-    //             ->orwhere('summary', 'like', '%' . $request->search . '%')
-    //             ->orwhere('price', 'like', '%' . $request->search . '%');
-    //     }
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
 
-    //     if ($request->filled('category_search')) {
-    //         $query->where('cat_id', $request->category_search);
-    //     }
+        if ($request->filled('category_search')) {
+            $query->where('cat_id', $request->category_search);
+        }
 
-    //     $products = $query->orderBy('id', 'DESC')->paginate('9');
+        $products = $query->orderBy('id', 'DESC')->paginate('9');
 
-    //     return view('frontend.pages.product-grids')->with('products', $products)->with('recent_products', $recent_products);
-    // }
+        return view('frontend.pages.product-grids')->with('products', $products)->with('recent_products', $recent_products);
+    }
 }

@@ -88,7 +88,7 @@
                             <div class="search-bar">
                                 @csrf
                                 <select name="category_search">
-                                    <option>Todas</option>
+                                    <option value="">Todas</option>
                                     @foreach (Helper::getAllCategory() as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->title }}</option>
                                     @endforeach
