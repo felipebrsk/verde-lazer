@@ -12,6 +12,7 @@ use App\Models\Post;
 use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Models\Gallery;
 
 class FrontendController extends Controller
 {
@@ -296,6 +297,20 @@ class FrontendController extends Controller
         } else {
             return redirect()->route('product-lists', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
         }
+    }
+
+    /**
+     *  See the product details.
+     * 
+     *  @param string $slug
+     *  @return \Illuminate\Http\Response
+     */
+    public function productDetail($slug)
+    {
+        $product_detail = Product::getProductBySlug($slug);
+        $imageGalleries = Gallery::where('product_id', $product_detail->id)->get();
+        
+        return view('frontend.pages.product_detail')->with(['product_detail' => $product_detail, 'imageGalleries' => $imageGalleries]);
     }
 
     /**

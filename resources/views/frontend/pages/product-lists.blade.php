@@ -116,7 +116,7 @@
                                         </div>
                                         <div class="content">
                                             <h5><a
-                                                    href="#">{{ $product->title }}</a>
+                                                    href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a>
                                             </h5>
                                             @php
                                                 $org = $product->price - ($product->price * $product->discount) / 100;
@@ -196,7 +196,7 @@
                                             <div class="col-lg-4 col-md-6 col-sm-6">
                                                 <div class="single-product">
                                                     <div class="product-img">
-                                                        <a href="#">
+                                                        <a href="{{ route('product-detail', $product->slug) }}">
                                                             <img class="default-img" src="{{ asset('frontend/products/' . $product->photo) }}"
                                                                 alt="{{ asset('frontend/products/' . $product->photo) }}">
                                                             <img class="hover-img" src="{{ asset('frontend/products/' . $product->photo) }}"
@@ -233,7 +233,7 @@
                                                             <del>R${{ number_format($product->price, 2) }}</del>
                                                         </div>
                                                         <h3 class="title"><a
-                                                                href="#">{{ $product->title }}</a>
+                                                                href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a>
                                                         </h3>
                                                         {{-- <p>{!! html_entity_decode($product->summary) !!}</p> --}}
                                                     </div>

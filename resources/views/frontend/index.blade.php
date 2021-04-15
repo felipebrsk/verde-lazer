@@ -47,7 +47,7 @@
                         <div class="carousel-caption d-none d-md-block text-left">
                             <h1 class="wow fadeInDown">{{ $banner->title }}</h1>
                             <p style="color: white;">{!! html_entity_decode($banner->description) !!}</p>
-                            <a class="btn btn-lg ws-btn wow fadeInUpBig" href="#"
+                            <a class="btn btn-lg ws-btn wow fadeInUpBig" href="{{ route('product-grids') }}"
                                 role="button">Ver agora <i class="far fa-arrow-alt-circle-right"></i></a>
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                                     <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{ $product->cat_id }}">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="#">
+                                                <a href="{{ route('product-detail', $product->slug) }}">
                                                     <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
                                                     @if ($product->stock <= 0)
                                                         <span class="out-of-stock">Esgotado</span>
@@ -177,7 +177,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="#">{{ $product->title }}</a>
+                                                        href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a>
                                                 </h3>
                                                 <div class="product-price">
                                                     @php
@@ -222,7 +222,7 @@
                                         <p>{{ $data->cat_info['title'] }}</p>
                                     @endif
                                     <h3 style="color: white;">{{ $data->title }} <br>Com<span> {{ $data->discount }}%</span></h3>
-                                    <a href="#">Locar agora</a>
+                                    <a href="{{ route('product-detail', $product->slug) }}">Locar agora</a>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                                 <!-- Start Single Product -->
                                 <div class="single-product">
                                     <div class="product-img">
-                                        <a href="#">
+                                        <a href="{{ route('product-detail', $product->slug) }}">
                                             <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
                                         </a>
                                         <div class="button-head">
@@ -271,7 +271,7 @@
                                     </div>
                                     <div class="product-content">
                                         <h3><a
-                                                href="#">{{ $product->title }}</a>
+                                                href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a>
                                         </h3>
                                         <div class="product-price">
                                             <span class="old">R${{ number_format($product->price, 2) }}</span>
@@ -448,7 +448,7 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <div class="quickview-content">
-                                        <h2><a href="#">
+                                        <h2><a href="{{ route('product-detail', $product->slug) }}">
                                                 {{ $product->title }}</a></h2>
                                         <div class="quickview-ratting-review">
                                             <div class="quickview-ratting-wrap">

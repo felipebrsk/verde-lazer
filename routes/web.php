@@ -44,6 +44,8 @@ Route::get('/product-listas', [FrontendController::class, 'productLists'])->name
 
 Route::match(['get', 'post'], '/filtros', [FrontendController::class, 'productFilter'])->name('shop.filter');
 
+Route::get('/product/details/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
+
 
 
 // Income section to call orders earning function

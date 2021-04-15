@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="content">
                                             <h5><a
-                                                    href="#">{{ $product->title }}</a>
+                                                    href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a>
                                             </h5>
                                             @php
                                                 $org = $product->price - ($product->price * $product->discount) / 100;
@@ -189,7 +189,7 @@
                                     <div class="col-lg-4 col-md-6 col-12">
                                         <div class="single-product">
                                             <div class="product-img">
-                                                <a href="#">
+                                                <a href="{{ route('product-detail', $product->slug) }}">
                                                     <img class="default-img" src="{{ asset('frontend/products/' . $product->photo) }}"
                                                         alt="{{ asset('frontend/products/' . $product->photo) }}">
                                                     <img class="hover-img" src="{{ asset('frontend/products/' . $product->photo) }}"
@@ -215,7 +215,7 @@
                                             </div>
                                             <div class="product-content">
                                                 <h3><a
-                                                        href="#">{{ $product->title }}</a>
+                                                        href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a>
                                                 </h3>
                                                 @php
                                                     $after_discount = $product->price - ($product->price * $product->discount) / 100;
