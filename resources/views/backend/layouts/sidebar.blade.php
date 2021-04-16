@@ -112,7 +112,7 @@
         <div id="shippingCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de transporte:</h6>
-                <a class="collapse-item" href="#">Transportes</a>
+                <a class="collapse-item" href="{{ route('shippings.index') }}">Transportes</a>
                 <a class="collapse-item" href="#">Adicionar transporte</a>
             </div>
         </div>

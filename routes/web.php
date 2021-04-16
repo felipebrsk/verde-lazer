@@ -16,6 +16,7 @@ use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\ShippingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,4 +151,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Gallery
     Route::resource('/galleries', GalleryController::class);
+
+    // Shipping
+    Route::resource('/shippings', ShippingController::class);
 });
