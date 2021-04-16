@@ -13,6 +13,8 @@ use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Gallery;
+use App\Models\PostCategory;
+use App\Models\PostTag;
 
 class FrontendController extends Controller
 {
@@ -336,5 +338,39 @@ class FrontendController extends Controller
         $products = $query->orderBy('id', 'DESC')->paginate('9');
 
         return view('frontend.pages.product-grids')->with('products', $products)->with('recent_products', $recent_products);
+    }
+
+    /**
+     *  Blog.
+     * 
+     *  @return \Illuminate\Http\Response
+     */
+    public function blog()
+    {
+        $posts = Post::query();
+
+        if (!empty($_GET['category'])) {
+            $slug = explode(',', $_GET['category']);
+            $cat_ids = PostCategory::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
+            return $cat_ids;
+            $posts->where('posts_tag_id', $cat_ids);
+        }
+
+        if (!empty($_GET['tag'])) {
+            $slug = explode(',', $_GET['tag']);
+            $tag_ids = PostTag::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
+            return $tag_ids;
+            $posts->where('post_tag_id', $tag_ids);
+        }
+
+        if (!empty($_GET['show'])) {
+            $post = $posts->where('status', 'active')->orderBy('id', 'DESC')->paginate($_GET['show']);
+        }else {
+            $post = $posts->where('status', 'active')->orderBy('id', 'DESC')->paginate(9);
+        }
+
+        $rcnt_posts = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
+
+        return view('frontend.pages.blog', compact('posts', 'rcnt_posts'));
     }
 }

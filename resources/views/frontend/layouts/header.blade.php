@@ -214,7 +214,7 @@
                                                 Request::path()== 'product-lists' ) active @endif"><a href="{{ route('product-grids') }}">Produtos</a><span class="new">Novo</span></li>
                                             {{ Helper::getHeaderCategory() }}
                                             <li class="{{ Request::path() == 'blog' ? 'active' : '' }}"><a
-                                                    href="#">Blog</a></li>
+                                                    href="{{ route('blog') }}">Blog</a></li>
 
                                             <li class="{{ Request::path() == 'contact' ? 'active' : '' }}"><a
                                                     href="{{ route('contact') }}">Contate-nos</a></li>
