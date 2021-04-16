@@ -63,9 +63,15 @@
                                         @if ($order->status == 'Em aberto')
                                             <span class="badge badge-primary">{{ $order->status }}</span>
                                         @elseif($order->status=='Em processamento')
+                                            <span class="badge badge-primary">{{ $order->status }}</span>
+                                        @elseif($order->status=='Coletado pela transportadora')
+                                            <span class="badge badge-primary">{{ $order->status }}</span>
+                                        @elseif($order->status=='A caminho')
+                                            <span class="badge badge-primary">{{ $order->status }}</span>
+                                        @elseif($order->status=='Em rota de entrega')
                                             <span class="badge badge-warning">{{ $order->status }}</span>
-                                        @elseif($order->status=='Locado')
-                                            <span class="badge badge-success">{{ $order->status }}</span>
+                                        @elseif($order->status=='Entregue')
+                                            <span class="badge badge-success">{{ $order->status }} <i class="fas fa-check"></i></span>
                                         @else
                                             <span class="badge badge-danger">{{ $order->status }}</span>
                                         @endif
@@ -94,7 +100,8 @@
                     </table>
                     <span style="float:right">{{ $orders->links() }}</span>
                 @else
-                    <h6 class="text-center">Nenhuma compra encontrada. <a href="{{ route('product-grids') }}">Continuar comprando.</a></h6>
+                    <h6 class="text-center">Nenhuma compra encontrada. <a href="{{ route('product-grids') }}">Continuar
+                            comprando.</a></h6>
                 @endif
             </div>
         </div>
