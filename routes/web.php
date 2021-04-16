@@ -157,4 +157,5 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Order
     Route::resource('/orders', OrderController::class);
+    Route::get('/orders/pdf/{id}', [OrderController::class, 'pdf'])->name('pdf.generate');
 });

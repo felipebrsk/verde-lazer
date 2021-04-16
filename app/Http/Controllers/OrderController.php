@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
 {
@@ -106,5 +107,22 @@ class OrderController extends Controller
             $data[$monthName] = (!empty($result[$i])) ? number_format((float)($result[$i]), 2, '.', '') : 0.0;
         }
         return $data;
+    }
+
+    /**
+     *  Generate and download the PDF with order details.
+     * 
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function pdf(Request $request)
+    {
+        set_time_limit(180);
+
+        $order = Order::getAllOrder($request->id);
+
+        $file_name = $order->order_number . '-' . $order->first_name . '.pdf';
+
+        return $pdf = PDF::loadView('backend.order.pdf', compact('order'))->setPaper('a4', 'landscape')->setWarnings(false)->download($file_name . '.pdf');
     }
 }
