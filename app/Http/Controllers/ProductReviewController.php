@@ -74,7 +74,9 @@ class ProductReviewController extends Controller
      */
     public function edit($id)
     {
-        //
+        $productReview = ProductReview::findOrFail($id);
+
+        return view('backend.review.edit', compact('productReview'));
     }
 
     /**
@@ -86,7 +88,31 @@ class ProductReviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $productReview = ProductReview::findOrFail($id);
+
+        $product = Product::getProductBySlug($request->slug);
+
+        $data = $request->all();
+
+        $status = $productReview->fill($data)->update();
+
+        // $admins = User::where('role', 'admin')->get();
+
+        // $details = [
+        //     'title' => 'Atualização de avaliação de produto!',
+        //     'actionURL' => route('product-detail', $product->id),
+        //     'fas' => 'fa-star'
+        // ];
+
+        
+        if ($status) {
+            // \Notification::send($admins, new StatusNotification($details));
+            request()->session()->flash('success', 'Avaliação atualizada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Ocorreu um erro ao atualizar a sua avaliação. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('reviews.index');
     }
 
     /**
@@ -97,6 +123,16 @@ class ProductReviewController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $productReview = ProductReview::findOrFail($id);
+
+        $status = $productReview->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Avaliação deletada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Ocorreu um erro ao remover essa avaliação. Por favor, tente novamente.');
+        }
+        
+        return redirect()->route('reviews.index');
     }
 }

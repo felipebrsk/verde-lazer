@@ -42,8 +42,8 @@
             <div class="carousel-inner" role="listbox">
                 @foreach ($banners as $key => $banner)
                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                        <img class="first-slide"
-                            src="{{ asset('frontend/banners/' . $banner->photo) }}" alt="First slide">
+                        <img class="first-slide" src="{{ asset('frontend/banners/' . $banner->photo) }}"
+                            alt="First slide">
                         <div class="carousel-caption d-none d-md-block text-left">
                             <h1 class="wow fadeInDown">{{ $banner->title }}</h1>
                             <p style="color: white;">{!! html_entity_decode($banner->description) !!}</p>
@@ -147,7 +147,8 @@
                                         <div class="single-product">
                                             <div class="product-img">
                                                 <a href="{{ route('product-detail', $product->slug) }}">
-                                                    <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
+                                                    <img src="{{ asset('frontend/products/' . $product->photo) }}"
+                                                        alt="{{ $product->photo }}">
                                                     @if ($product->stock <= 0)
                                                         <span class="out-of-stock">Esgotado</span>
                                                     @elseif($product->condition=='new')
@@ -162,10 +163,12 @@
                                                 <div class="button-head">
                                                     <div class="product-action">
                                                         <a data-toggle="modal" data-target="#{{ $product->slug }}"
-                                                            title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
+                                                            title="Visualização rápida" href="#"><i
+                                                                class=" fas fa-eye"></i><span>Visualização
                                                                 rápida</span></a>
                                                         <a title="Wishlist"
-                                                            href="{{ route('add-to-wishlist', $product->slug) }}"><i class="far fa-heart"></i><span>Adicionar à lista de
+                                                            href="{{ route('add-to-wishlist', $product->slug) }}"><i
+                                                                class="far fa-heart"></i><span>Adicionar à lista de
                                                                 desejos</span></a>
                                                     </div>
                                                     <div class="product-action-2">
@@ -216,12 +219,14 @@
                         <!-- Single Banner  -->
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="single-banner">
-                                <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
+                                <img src="{{ asset('frontend/products/' . $product->photo) }}"
+                                    alt="{{ $product->photo }}">
                                 <div class="content">
                                     @if (isset($data->cat_info))
                                         <p>{{ $data->cat_info['title'] }}</p>
                                     @endif
-                                    <h3 style="color: white;">{{ $data->title }} <br>Com<span> {{ $data->discount }}%</span></h3>
+                                    <h3 style="color: white;">{{ $data->title }} <br>Com<span>
+                                            {{ $data->discount }}%</span></h3>
                                     <a href="{{ route('product-detail', $product->slug) }}">Locar agora</a>
                                 </div>
                             </div>
@@ -253,15 +258,19 @@
                                 <div class="single-product">
                                     <div class="product-img">
                                         <a href="{{ route('product-detail', $product->slug) }}">
-                                            <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
+                                            <img src="{{ asset('frontend/products/' . $product->photo) }}"
+                                                alt="{{ $product->photo }}">
                                         </a>
                                         <div class="button-head">
                                             <div class="product-action">
                                                 <a data-toggle="modal" data-target="#{{ $product->slug }}"
-                                                    title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
+                                                    title="Visualização rápida" href="#"><i
+                                                        class=" fas fa-eye"></i><span>Visualização
                                                         rápida</span></a>
                                                 <a title="Wishlist"
-                                                    href="{{ route('add-to-wishlist', $product->slug) }}"><i class="far fa-heart"></i><span>Adicionar à lista de desejos</span></a>
+                                                    href="{{ route('add-to-wishlist', $product->slug) }}"><i
+                                                        class="far fa-heart"></i><span>Adicionar à lista de
+                                                        desejos</span></a>
                                             </div>
                                             <div class="product-action-2">
                                                 <a href="{{ route('add-to-cart', $product->slug) }}">Adicionar ao
@@ -397,11 +406,11 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <!-- Start Single Blog  -->
                             <div class="shop-single-blog">
-                                <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
+                                <img src="{{ asset('frontend/products/' . $product->photo) }}"
+                                    alt="{{ $product->photo }}">
                                 <div class="content">
                                     <p class="date">{{ $post->created_at->format('d M , Y. D') }}</p>
-                                    <a href="#"
-                                        class="title">{{ $post->title }}</a>
+                                    <a href="#" class="title">{{ $post->title }}</a>
                                     <a href="#" class="more-btn">Continuar
                                         lendo</a>
                                 </div>
@@ -423,41 +432,35 @@
     @include('frontend.layouts.newsletter')
 
     <!-- Modal -->
-    @if (isset($product_lists))
-        @foreach ($product_lists as $key => $product)
+    @if ($product_lists)
+        @foreach ($product_lists as $product)
             <div class="modal fade" id="{{ $product->slug }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    class="ti-close" aria-hidden="true"></span></button>
+                                    class="fas fa-times" aria-hidden="true"></span></button>
                         </div>
                         <div class="modal-body">
                             <div class="row no-gutters">
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <!-- Product Slider -->
                                     <div class="product-gallery">
-                                        <div class="quickview-slider-active">
-                                            <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}" style="height: 510px;">
-                                                <div class="single-slider">
-                                                    <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
-                                                </div>
+                                        <div>
+                                            <div>
+                                                <img src="{{ asset('frontend/products/' . $product->photo) }}" style="height: 510px; max-height: 510px;"
+                                                    alt="{{ $product->photo }}">
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- End Product slider -->
                                 </div>
                                 <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <div class="quickview-content">
-                                        <h2><a href="{{ route('product-detail', $product->slug) }}">
-                                                {{ $product->title }}</a></h2>
+                                        <h2><a href="{{ route('product-detail', $product->slug) }}">{{ $product->title }}</a></h2>
                                         <div class="quickview-ratting-review">
                                             <div class="quickview-ratting-wrap">
                                                 <div class="quickview-ratting">
-                                                    {{-- <i class="yellow fa fa-star"></i>
-                                                    <i class="yellow fa fa-star"></i>
-                                                    <i class="yellow fa fa-star"></i>
-                                                    <i class="yellow fa fa-star"></i>
-                                                    <i class="fa fa-star"></i> --}}
                                                     @php
                                                         $rate = DB::table('product_reviews')
                                                             ->where('product_id', $product->id)
@@ -468,21 +471,12 @@
                                                     @endphp
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         @if ($rate >= $i) <i
-                                                        class="yellow fa fa-star"></i>
+                                                        class="yellow fas fa-star"></i>
                                                     @else
                                                         <i class="far fa-star"></i> @endif
                                                     @endfor
                                                 </div>
-                                                <a href="#"> ({{ $rate_count }} Avaliações de usuários)</a>
-                                            </div>
-                                            <div class="quickview-stock">
-                                                @if ($product->stock > 0)
-                                                    <span><i class="fas fa-check-circle"></i> {{ $product->stock }}
-                                                        Livre </span>
-                                                @else
-                                                    <span><i class="far fa-times-circle text-danger"></i>
-                                                        {{ $product->stock }} Locado</span>
-                                                @endif
+                                                <a href="{{ route('product-detail', $product->slug) }}"> ({{ $rate_count }} avaliações)</a>
                                             </div>
                                         </div>
                                         @php
@@ -494,80 +488,6 @@
                                         <div class="quickview-peragraph">
                                             <p>{!! html_entity_decode($product->summary) !!}</p>
                                         </div>
-                                        @if ($product->size)
-                                            <div class="size">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-12">
-                                                        <h5 class="title">Tamanho</h5>
-                                                        <select>
-                                                            @php
-                                                                $sizes = explode(',', $product->size);
-                                                                // dd($sizes);
-                                                            @endphp
-                                                            @foreach ($sizes as $size)
-                                                                <option>{{ $size }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    {{-- <div class="col-lg-6 col-12">
-                                                        <h5 class="title">Color</h5>
-                                                        <select>
-                                                            <option selected="selected">orange</option>
-                                                            <option>purple</option>
-                                                            <option>black</option>
-                                                            <option>pink</option>
-                                                        </select>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                        @endif
-                                        @if ($product->address != null)
-                                            <div class="mt-2">
-                                                <div class="mt-2 d-flex justify-content-between">
-                                                    <ul>
-                                                        <h6>Datas disponíveis</h6>
-                                                        <li>{{ $product->available_dates }}</li>
-                                                    </ul>
-                                                    <ul class="d-flex flex-row">
-                                                        @if ($product->pool === 1)
-                                                            <li><img src="{{ asset('frontend/icons/pool-icon.png') }}"
-                                                                    alt="Piscina" title="Piscina" width="20"> <i
-                                                                    class="fas fa-check"></i>
-                                                            </li>
-                                                        @endif
-
-                                                        @if ($product->barbecue === 1)
-                                                            <li class="ml-3"><img
-                                                                    src="{{ asset('frontend/icons/barbecue-icon.png') }}"
-                                                                    alt="Churrasqueira" title="Churrasqueira" width="20"> <i
-                                                                    class="fas fa-check"></i></li>
-                                                        @endif
-
-                                                        @if ($product->soccer === 1)
-                                                            <li class="ml-3"><img
-                                                                    src="{{ asset('frontend/icons/gramado-icon.png') }}"
-                                                                    alt="Campo de futebol" title="Campo de futebol"
-                                                                    width="20"> <i class="fas fa-check"></i></li>
-                                                        @endif
-
-                                                        @if ($product->air_conditioning === 1)
-                                                            <li class="ml-3"><img
-                                                                    src="{{ asset('frontend/icons/air-icon.png') }}"
-                                                                    alt="Ar condicionado" title="Ar condicionado"
-                                                                    width="20"> <i class="fas fa-check"></i></li>
-                                                        @endif
-
-                                                        @if ($product->wifi === 1)
-                                                            <li class="ml-3"><img
-                                                                    src="{{ asset('frontend/icons/wifi-icon.png') }}"
-                                                                    alt="Wi-Fi" title="Wi-Fi" width="20"> <i
-                                                                    class="fas fa-check"></i>
-                                                            </li>
-                                                        @endif
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        @endif
                                         <form action="{{ route('single-add-to-cart') }}" method="POST" class="mt-4">
                                             @csrf
                                             <div class="quantity">
@@ -592,7 +512,7 @@
                                                 <!--/ End Input Order -->
                                             </div>
                                             <div class="add-to-cart">
-                                                <button type="submit" class="btn">Adicionar ao carrinho</button>
+                                                <button type="submit" class="btn">add ao carrinho</button>
                                                 <a href="{{ route('add-to-wishlist', $product->slug) }}"
                                                     class="btn min"><i class="far fa-heart"></i></a>
                                             </div>
@@ -725,7 +645,7 @@
     </script> --}}
     <script>
         /*==================================================================
-                                                            [ Isotope ]*/
+                                                                [ Isotope ]*/
         var $topeContainer = $('.isotope-grid');
         var $filter = $('.filter-tope-group');
 

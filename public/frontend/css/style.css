@@ -2653,7 +2653,7 @@ Version:1.0
     color: #999;
 }
 
-.shop-sidebar .single-post .reviews li.yellow i {
+.shop-sidebar .single-post .reviews li.#F7941D i {
     color: rgb(64, 202, 30);
 }
 
@@ -2850,7 +2850,7 @@ Version:1.0
 }
 
 .shop.single .product-des .rating li i {
-    color: rgb(64, 202, 30);
+    color: #F7941D;
 }
 
 .shop.single .product-des .rating li.dark i {
@@ -3260,7 +3260,7 @@ Version:1.0
 }
 
 .shop.single .ratting-main .single-rating ul li i {
-    color: rgb(64, 202, 30);
+    color: #F7941D;
     font-size: 14px;
 }
 
@@ -3325,7 +3325,7 @@ Version:1.0
 }
 
 .shop.single .comment-review .rating li i {
-    color: rgb(64, 202, 30);
+    color: #F7941D;
     font-size: 14px;
 }
 
@@ -4263,7 +4263,7 @@ Version:1.0
 }
 
 .shop-list .list-content .rating li i {
-    color: rgb(64, 202, 30);
+    color: #F7941D;
 }
 
 .shop-list .list-content .rating li.total {

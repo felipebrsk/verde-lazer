@@ -70,7 +70,7 @@
                                                 @if ($rate >= $i) <li><i
                                                 class="fa fa-star"></i></li>
                                             @else
-                                                <li><i class="far fa-star"></i></li> @endif
+                                                <li><i class="fa fa-star-o"></i></li> @endif
                                             @endfor
                                         </ul>
                                         <a href="#" class="total-review">({{ $product_detail['getReview']->count() }})
@@ -645,7 +645,7 @@
         .star-rating__ico:hover:before,
         .star-rating__ico:hover~.star-rating__ico:before,
         .star-rating__input:checked~.star-rating__ico:before {
-            content: "\F005";
+            content: "\f005";
         }
 
     </style>
