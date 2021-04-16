@@ -143,6 +143,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Product Review
     Route::resource('/reviews', ProductReviewController::class);
+    Route::post('/products/{slug}/review', [ProductReviewController::class, 'addReview'])->name('reviews.add');
 
     // Products
     Route::resource('/products', ProductController::class);

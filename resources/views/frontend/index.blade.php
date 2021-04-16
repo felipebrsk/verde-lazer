@@ -161,7 +161,7 @@
                                                 </a>
                                                 <div class="button-head">
                                                     <div class="product-action">
-                                                        <a data-toggle="modal" data-target="#{{ $product->id }}"
+                                                        <a data-toggle="modal" data-target="#{{ $product->slug }}"
                                                             title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
                                                                 rápida</span></a>
                                                         <a title="Wishlist"
@@ -257,7 +257,7 @@
                                         </a>
                                         <div class="button-head">
                                             <div class="product-action">
-                                                <a data-toggle="modal" data-target="#{{ $product->id }}"
+                                                <a data-toggle="modal" data-target="#{{ $product->slug }}"
                                                     title="Visualização rápida" href="#"><i class=" fas fa-eye"></i><span>Visualização
                                                         rápida</span></a>
                                                 <a title="Wishlist"
@@ -423,9 +423,9 @@
     @include('frontend.layouts.newsletter')
 
     <!-- Modal -->
-    @if ($product_lists)
+    @if (isset($product_lists))
         @foreach ($product_lists as $key => $product)
-            <div class="modal fade" id="{{ $product->id }}" tabindex="-1" role="dialog">
+            <div class="modal fade" id="{{ $product->slug }}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -438,7 +438,7 @@
                                     <!-- Product Slider -->
                                     <div class="product-gallery">
                                         <div class="quickview-slider-active">
-                                            <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}" style="height: 510px; object-fit: cover;">
+                                            <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}" style="height: 510px;">
                                                 <div class="single-slider">
                                                     <img src="{{ asset('frontend/products/' . $product->photo) }}" alt="{{ $product->photo }}">
                                                 </div>

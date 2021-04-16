@@ -267,8 +267,8 @@
                                                         <div class="review-inner">
                                                             <!-- Form -->
                                                             @auth
-                                                                <form class="form" method="post"
-                                                                    action="#">
+                                                                <form class="form" method="POST"
+                                                                    action="{{ route('reviews.add', $product_detail->slug) }}">
                                                                     @csrf
                                                                     <div class="row">
                                                                         <div class="col-lg-12 col-12">
@@ -425,7 +425,6 @@
                 </div>
             </div>
             <div class="row">
-                {{-- {{$product_detail->rel_prods}} --}}
                 <div class="col-12">
                     <div class="owl-carousel popular-slider">
                         @foreach ($product_detail->rel_prods as $data)
@@ -437,22 +436,21 @@
                                             @php
                                                 $photo = explode(',', $data->photo);
                                             @endphp
-                                            <img class="default-img" src="{{ $photo[0] }}" alt="{{ $photo[0] }}">
-                                            <img class="hover-img" src="{{ $photo[0] }}" alt="{{ $photo[0] }}">
+                                            <img class="default-img" src="{{ asset('frontend/products/' . $data->photo) }}" alt="{{ asset('frontend/products/' . $data->photo) }}">
+                                            <img class="hover-img" src="{{ asset('frontend/products/' . $data->photo) }}" alt="{{ asset('frontend/products/' . $data->photo) }}">
                                             <span class="price-dec">{{ $data->discount }} % Off</span>
-                                            {{-- <span class="out-of-stock">Hot</span> --}}
                                         </a>
                                         <div class="button-head">
                                             <div class="product-action">
-                                                <a data-toggle="modal" data-target="#modelExample" title="Quick View"
-                                                    href="#"><i class="fas fa-eye"></i><span>Compra rápida</span></a>
-                                                <a title="Wishlist" href="#"><i class="far fa-heart"></i><span>Adicionar à
+                                                <a data-toggle="modal" data-target="#modelExample" title="Visualização rápida"
+                                                    href="{{ route('single-add-to-cart', $data->slug) }}"><i class="fas fa-eye"></i><span>Visualização rápida</span></a>
+                                                <a title="Adicionar à lista de desejos" href="{{ route('add-to-wishlist', $data->slug) }}"><i class="far fa-heart"></i><span>Adicionar à
                                                         lista de desejos</span></a>
-                                                <a title="Compare" href="#"><i
+                                                <a title="Comparar" href="#"><i
                                                         class="fas fa-chart-bar"></i><span>Comparar</span></a>
                                             </div>
                                             <div class="product-action-2">
-                                                <a title="Add to cart" href="#">Adicionar ao carrinho</a>
+                                                <a title="Add to cart" href="{{ route('add-to-cart', $data->slug) }}">Adicionar ao carrinho</a>
                                             </div>
                                         </div>
                                     </div>
