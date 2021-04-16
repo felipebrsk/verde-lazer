@@ -51,10 +51,10 @@
                                                 @endforeach
                                             </span>
                                         </p>
-                                        <a href="{{ route('blog.detail', $post->slug) }}"
+                                        <a href="#"
                                             class="title">{{ $post->title }}</a>
                                         <p>{!! html_entity_decode($post->summary) !!}</p>
-                                        <a href="{{ route('blog.detail', $post->slug) }}" class="more-btn">Continuar
+                                        <a href="#" class="more-btn">Continuar
                                             lendo</a>
                                     </div>
                                 </div>

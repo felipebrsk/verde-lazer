@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\ProductReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,11 +135,14 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
     // Category
     Route::resource('/categories', CategoryController::class);
 
+    // Ajax for sub category
+    Route::post('/categories/{id}/child', [CategoryController::class, 'getChildByParent']);
+
     // Coupon
     Route::resource('/coupons', CouponController::class);
 
-    // Ajax for sub category
-    Route::post('/categories/{id}/child', [CategoryController::class, 'getChildByParent']);
+    // Product Review
+    Route::resource('/reviews', ProductReviewController::class);
 
     // Products
     Route::resource('/products', ProductController::class);

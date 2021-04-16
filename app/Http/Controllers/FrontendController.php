@@ -364,9 +364,9 @@ class FrontendController extends Controller
         }
 
         if (!empty($_GET['show'])) {
-            $post = $posts->where('status', 'active')->orderBy('id', 'DESC')->paginate($_GET['show']);
+            $posts = $posts->where('status', 'active')->orderBy('id', 'DESC')->paginate($_GET['show']);
         }else {
-            $post = $posts->where('status', 'active')->orderBy('id', 'DESC')->paginate(9);
+            $posts = $posts->where('status', 'active')->orderBy('id', 'DESC')->paginate(9);
         }
 
         $rcnt_posts = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
