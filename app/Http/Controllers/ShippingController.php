@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShippingRequest;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 
@@ -26,29 +27,28 @@ class ShippingController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.shipping.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ShippingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShippingRequest $request)
     {
-        //
-    }
+        $data = $request->all();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $status = Shipping::create($data);
+
+        if ($status) {
+            request()->session()->flash('success', 'Forma de envio criada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Ocorreu um erro ao criar a forma de envio. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('shippings.index');
     }
 
     /**
@@ -65,11 +65,11 @@ class ShippingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ShippingRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShippingRequest $request, $id)
     {
         //
     }
