@@ -154,4 +154,7 @@ Route::group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], function
 
     // Shipping
     Route::resource('/shippings', ShippingController::class);
+
+    // Order
+    Route::resource('/orders', OrderController::class);
 });

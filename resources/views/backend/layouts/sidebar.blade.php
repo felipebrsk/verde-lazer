@@ -113,16 +113,16 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Opções de transporte:</h6>
                 <a class="collapse-item" href="{{ route('shippings.index') }}">Transportes</a>
-                <a class="collapse-item" href="#">Adicionar transporte</a>
+                <a class="collapse-item" href="{{ route('shippings.create') }}">Adicionar transporte</a>
             </div>
         </div>
     </li>
 
     <!--Orders -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('orders.index') }}">
             <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Locações</span>
+            <span>Compras</span>
         </a>
     </li>
 
