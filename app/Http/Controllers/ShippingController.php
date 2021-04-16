@@ -59,7 +59,9 @@ class ShippingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $shipping = Shipping::findOrFail($id);
+
+        return view('backend.shipping.edit', compact('shipping'));
     }
 
     /**
@@ -71,7 +73,19 @@ class ShippingController extends Controller
      */
     public function update(ShippingRequest $request, $id)
     {
-        //
+        $shipping = Shipping::findOrFail($id);
+
+        $data = $request->all();
+
+        $status = $shipping->fill($data)->update();
+
+        if ($status) {
+            request()->session()->flash('success', 'Forma de envio atualizada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Ocorreu um erro ao atualizar a forma de envio. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('shippings.index');
     }
 
     /**
@@ -82,6 +96,16 @@ class ShippingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $shipping = Shipping::findOrFail($id);
+
+        $status = $shipping->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Forma de envio deletada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Ocorreu um erro ao deletar a forma de envio. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('shippings.index');
     }
 }

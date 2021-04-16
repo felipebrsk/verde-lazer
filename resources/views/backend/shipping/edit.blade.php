@@ -1,62 +1,37 @@
 @extends('backend.layouts.master')
-@section('title', '| Editar um cupom')
+@section('title', '| Editar forma de envio')
 
 @section('content')
 
     <div class="card">
-        <h5 class="card-header">Editar cupom</h5>
+        <h5 class="card-header">Editar forma de envio</h5>
         <div class="card-body">
-            <form method="post" action="{{ route('coupons.update', $coupon->id) }}">
+            <form method="post" action="{{ route('shippings.update', $shipping->id) }}">
                 @csrf
                 @method('PATCH')
                 <div class="form-group">
-                    <label for="inputTitle" class="col-form-label">Código do cupom <span
-                            class="text-danger">*</span></label>
-                    <input id="inputTitle" type="text" name="code" placeholder="Insira o código do cupom"
-                        value="{{ isset($coupon->code) ? $coupon->code : old('code') }}" class="form-control">
-                    @error('code')
+                    <label for="inputTitle" class="col-form-label">Tipo <span class="text-danger">*</span></label>
+                    <input id="inputTitle" type="text" name="type" placeholder="Insira o tipo"
+                        value="{{ isset($shipping->type) ? $shipping->type : old('type') }}" class="form-control">
+                    @error('title')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
                 <div class="form-group">
-                    <label for="type" class="col-form-label">Tipo <span class="text-danger">*</span></label>
-                    <select name="type" class="form-control">
-                        <option value="fixed" {{ $coupon->type == 'fixed' ? 'selected' : '' }}>Fixo</option>
-                        <option value="percent" {{ $coupon->type == 'percent' ? 'selected' : '' }}>Percentual</option>
-                    </select>
-                    @error('type')
+                    <label for="price" class="col-form-label">Preço <span class="text-danger">*</span></label>
+                    <input id="price" type="number" name="price" placeholder="Insira o preço"
+                        value="{{ isset($shipping->price) ? $shipping->price : old('price') }}" class="form-control">
+                    @error('price')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-
-                <div class="form-group">
-                    <label for="inputTitle" class="col-form-label">Valor (em porcentagem ou fixo, insira o valor inteiro).
-                        <span class="text-danger">*</span></label>
-                    <input id="inputTitle" type="number" name="value" placeholder="Enter Coupon value"
-                        value="{{ isset($coupon->value) ? $coupon->value : old('value') }}" class="form-control">
-                    @error('value')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
                 <div class="form-group">
                     <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
                     <select name="status" class="form-control">
-                        <option value="active" {{ $coupon->status == 'active' ? 'selected' : '' }}>Ativo</option>
-                        <option value="inactive" {{ $coupon->status == 'inactive' ? 'selected' : '' }}>Inativo</option>
+                        <option value="active" {{ $shipping->status == 'active' ? 'selected' : '' }}>Ativo</option>
+                        <option value="inactive" {{ $shipping->status == 'inactive' ? 'selected' : '' }}>Inativo</option>
                     </select>
                     @error('status')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="expiry_date" class="col-form-label" style="width: 100%;">Expira em <span
-                            class="text-danger">*</span></label>
-                    <input type="date" class="form-control" name="expiry_date"
-                        value="{{ isset($coupon->expiry_date) ? $coupon->expiry_date : old('expiry_date') }}">
-                    @error('expiry_date')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
