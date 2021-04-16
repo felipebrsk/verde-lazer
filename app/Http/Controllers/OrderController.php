@@ -6,6 +6,13 @@ use App\Http\Requests\OrderUpdateRequest;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Shipping;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Cart;
+use Illuminate\Support\Str;
+use App\Models\User;
+use App\Notifications\StatusNotification;
+use Helper;
 use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
@@ -30,7 +37,79 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!Cart::where('user_id', Auth::user()->id)->where('order_id', null)->first()) {
+            request()->session()->flash('error', 'Carrinho vazio.');
+            return back();
+        }
+
+        $order = new Order();
+
+        $order_data = $request->all();
+
+        $order_data['order_number'] = 'ORD-' . strtoupper(Str::random(10));
+        $order_data['user_id'] = Auth::id();
+        $order_data['shipping_id'] = $request->shipping;
+        $shipping = Shipping::where('id', $order_data['shipping_id'])->pluck('price');
+        $order_data['sub_total'] = Helper::totalCartPrice();
+        $order_data['quantity'] = Helper::cartCount();
+
+        if (session('coupon')) {
+            $order_data['coupon'] = session('coupon')['value'];
+        }
+
+        if ($request->shipping) {
+            if (session('coupon')) {
+                $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0] - session('coupon')['value'];
+            } else {
+                $order_data['total_amount'] = Helper::totalCartPrice() + $shipping[0];
+            }
+        } else {
+            if (session('coupon')) {
+                $order_data['total_amount'] = Helper::totalCartPrice() - session('coupon')['value'];
+            } else {
+                $order_data['total_amount'] = Helper::totalCartPrice();
+            }
+        }
+
+        $order_data['status'] = "Em aberto";
+        if (request('payment_method') == 'paypal') {
+            $order_data['payment_method'] = 'paypal';
+            $order_data['payment_status'] = 'Pago';
+        } else {
+            $order_data['payment_method'] = 'cod';
+            $order_data['payment_status'] = 'Nao pago';
+        }
+
+        $order->fill($order_data);
+
+        $status = $order->save();
+
+        if ($order)
+            $users = User::where('role', 'admin')->get();
+
+        $details = [
+            'title' => 'Nova compra registrada.',
+            'actionURL' => route('order.show', $order->id),
+            'fas' => 'fa-file-alt'
+        ];
+
+        
+        if (request('payment_method') == 'paypal') {
+            return redirect()->route('payment')->with(['id' => $order->id]);
+        } else {
+            session()->forget('cart');
+            session()->forget('coupon');
+        }
+        Cart::where('user_id', Auth::id())->where('order_id', null)->update(['order_id' => $order->id]);
+        
+        if ($status) {
+            \Notification::send($users, new StatusNotification($details));
+
+            request()->session()->flash('success', 'Obrigado pela compra! Seu pedido entrará em análise e logo, logo será enviado.');
+            return redirect()->route('home');
+        } else {
+            return back()->with('error', 'Ocorreu um erro ao efetuar a compra. Por favor, tente novamente.');
+        }
     }
 
     /**
