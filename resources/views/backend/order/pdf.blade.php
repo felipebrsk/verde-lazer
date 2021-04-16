@@ -129,12 +129,12 @@
         </div>
         <section class="order_details pt-3">
             <div class="table-header">
-                <h5>Detalhes da locação</h5>
+                <h5>Detalhes da compra</h5>
             </div>
             <table class="table table-bordered table-stripe">
                 <thead>
                     <tr>
-                        <th scope="col" class="col-6">Local</th>
+                        <th scope="col" class="col-6">Produto</th>
                         <th scope="col" class="col-3">Quantidade</th>
                         <th scope="col" class="col-3">Total</th>
                     </tr>

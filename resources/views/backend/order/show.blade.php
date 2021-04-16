@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', '| Detalhes da locação')
+@section('title', '| Detalhes da compra')
 
 @section('content')
     <div class="card">
@@ -18,7 +18,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nº da locação</th>
+                            <th>Nº da compra</th>
                             <th>Nome</th>
                             <th>E-mail</th>
                             <th>Quantidade</th>
@@ -82,23 +82,23 @@
                         <div class="row">
                             <div class="col-lg-6 col-lx-4">
                                 <div class="order-info">
-                                    <h4 class="text-center pb-4">INFORMAÇÕES DA LOCAÇÃO</h4>
+                                    <h4 class="text-center pb-4">INFORMAÇÕES DA COMPRA</h4>
                                     <table class="table">
                                         <tr class="">
-                                            <td>Número da locação</td>
+                                            <td>Número da compra</td>
                                             <td> : {{ $order->order_number }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Data da locação</td>
+                                            <td>Data da compra</td>
                                             <td> : {{ $order->created_at->format('D, d/m/Y') }} às
-                                                {{ $order->created_at->format('g:i A') }} </td>
+                                                {{ $order->created_at->format('H:i:s') }} </td>
                                         </tr>
                                         <tr>
                                             <td>Quantidade</td>
                                             <td> : {{ $order->quantity }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Status da locação</td>
+                                            <td>Status da compra</td>
                                             <td> : {{ $order->status }}</td>
                                         </tr>
                                         <tr>

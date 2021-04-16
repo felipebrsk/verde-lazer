@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderUpdateRequest;
 use App\Models\Order;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
@@ -53,19 +54,41 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        return view('backend.order.edit', compact('order'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\OrderUpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrderUpdateRequest $request, $id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        $data = $request->all();
+
+        if ($request->status == 'Entregue') {
+            foreach ($order->cart as $cart) {
+                $product = $cart->product;
+                $product->stock -= $cart->quantity;
+                $product->save();
+            }
+        }
+
+        $status = $order->fill($data)->update();
+
+        if ($status) {
+            request()->session()->flash('success', 'Compra atualizada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Ocorreu um erro ao atualizar esta compra. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -88,7 +111,7 @@ class OrderController extends Controller
     {
         $year = Carbon::now()->year;
 
-        $items = Order::with(['cart_info'])->whereYear('created_at', $year)->where('status', 'Locado')->get()
+        $items = Order::with(['cart_info'])->whereYear('created_at', $year)->where('status', 'Entregue')->get()
             ->groupBy(function ($d) {
                 return Carbon::parse($d->created_at)->format('m');
             });

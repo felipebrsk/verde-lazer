@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', '| Locações')
+@section('title', '| Compras')
 
 @section('content')
     <div class="card shadow mb-4">
@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary float-left">Lista de locações</h6>
+            <h6 class="m-0 font-weight-bold text-primary float-left">Lista de compras</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -18,7 +18,7 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Nº da locação</th>
+                                <th>Nº da compra</th>
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Quantidade</th>
@@ -31,7 +31,7 @@
                         <tfoot>
                             <tr>
                                 <th>Id</th>
-                                <th>Nº da locação</th>
+                                <th>Nº da compra</th>
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th>Quantidade</th>
