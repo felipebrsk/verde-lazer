@@ -17,6 +17,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShippingController;
+use App\Http\Controllers\PayPalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,9 +47,19 @@ Route::get('/product/sub-category/{slug}/{sub_slug}', [FrontendController::class
 Route::get('/product-grids', [FrontendController::class, 'productGrids'])->name('product-grids');
 Route::get('/product-listas', [FrontendController::class, 'productLists'])->name('product-lists');
 
-Route::match(['get', 'post'], '/filtros', [FrontendController::class, 'productFilter'])->name('shop.filter');
+Route::match(['get', 'post'], '/filters', [FrontendController::class, 'productFilter'])->name('shop.filter');
 
 Route::get('/product/details/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
+
+
+
+// Checkout
+Route::view('/checkout', 'frontend.pages.checkout')->name('checkout')->middleware('user');
+
+// Payment
+Route::get('/payments', [PaypalController::class, 'payment'])->name('payment');
+Route::get('cancel', [PayPalController::class, 'cancel'])->name('payment.cancel');
+Route::get('payments/success', [PayPalController::class, 'success'])->name('payment.success');
 
 
 
@@ -91,10 +102,12 @@ Route::prefix('/user')->group(function () {
     Route::view('cart', 'frontend.pages.cart')->name('cart');
 
     Route::get('/add-to-cart/{slug}', [CartController::class, 'addToCart'])->name('add-to-cart')->middleware('user');
-    Route::get('carrinho/remover/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
+    Route::get('/cart/remove/{id}', [CartController::class, 'cartDelete'])->name('cart-delete');
 
     Route::post('/add-to-cart', [CartController::class, 'singleAddToCart'])->name('single-add-to-cart')->middleware('user');
-    Route::post('cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+    Route::post('/cart/update', [CartController::class, 'cartUpdate'])->name('cart.update');
+
+    Route ::post('/cart/pay', [OrderController::class, 'store'])->name('cart.order');
 
     // Auth
     Route::post('/login', [FrontendController::class, 'loginSubmit'])->name('login.submit');

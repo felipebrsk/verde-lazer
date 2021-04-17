@@ -37,6 +37,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(['shipping' => 'required']);
+        
         if (!Cart::where('user_id', Auth::user()->id)->where('order_id', null)->first()) {
             request()->session()->flash('error', 'Carrinho vazio.');
             return back();
@@ -89,7 +91,7 @@ class OrderController extends Controller
 
         $details = [
             'title' => 'Nova compra registrada.',
-            'actionURL' => route('order.show', $order->id),
+            'actionURL' => route('orders.show', $order->id),
             'fas' => 'fa-file-alt'
         ];
 
@@ -178,7 +180,17 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::findOrFail($id);
+
+        $status = $order->delete();
+
+        if ($status) {
+            request()->session()->flash('success', 'Compra deletada com sucesso.');
+        } else {
+            request()->session()->flash('error', 'Compra não pôde ser deletada. Por favor, tente novamente.');
+        }
+
+        return redirect()->route('order.index');
     }
 
     /**

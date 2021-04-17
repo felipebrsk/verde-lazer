@@ -192,7 +192,7 @@
                                         @endif
                                     </ul>
                                     <div class="button5">
-                                        <a href="#" class="btn">Pagamento</a>
+                                        <a href="{{ route('checkout') }}" class="btn">Pagamento</a>
                                         <a href="{{ route('product-grids') }}" class="btn">Continuar comprando</a>
                                     </div>
                                 </div>
