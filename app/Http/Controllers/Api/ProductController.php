@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Api\ApiError;
 
 class ProductController extends Controller
 {
@@ -34,13 +35,18 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $data = $request->wantsJson();
-
         try {
-            Product::create($data);
-            return response()->json(['data' => ['message' => 'O seu produto foi adicionado com sucesso! Obrigado.']], 200);
+            $data = $request->wantsJson();
+
+            $this->product->create($data);
+
+            return response()->json(['data' => ['message' => 'O seu produto foi adicionado com sucesso! Obrigado.']], 201);
         } catch (\Exception $e) {
-            return response()->json(['data' => ['message' => 'Erro.']], 500);
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), $e->getCode()));
+            } else {
+                return response()->json(ApiError::errorMessage('Houve um erro ao adicionar o produto!', 500));
+            }
         }
     }
 
@@ -52,18 +58,11 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if ($this->product->find($id)) {
+            return response()->json(['data' => $this->product->find($id)], 200);
+        } else {
+            return response()->json(['data' => ['message' => 'Não foi possível encontrar o produto solicitado.']], 404);
+        }
     }
 
     /**
@@ -75,7 +74,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->wantsJson();
+
+            $product = $this->product->find($id);
+
+            $product->update($data);
+
+            return response()->json(['data' => ['message' => 'Os dados do produto foram alterados com sucesso!']], 201);
+        } catch (\Throwable $e) {
+            if (config('app.debug')){
+                return response()->json(ApiError::errorMessage($e->getMessage(), $e->getCode()));
+            } else {
+                return response()->json(ApiError::errorMessage('Houve um erro ao atualizar o produto!', 500));
+            }
+        }
     }
 
     /**
@@ -86,6 +99,16 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->product->delete();
+
+            return response()->json(['data' => ['message' => 'O produto foi removido com sucesso!']], 200);
+        } catch (\Exception $e) {
+            if (config('app.debug')) {
+                return response()->json(ApiError::errorMessage($e->getMessage(), $e->getCode()));
+            } else {
+                return response()->json(ApiError::errorMessage('Houve um erro ao remover o produto. Por favor, tente novamente!', 500));
+            }
+        }
     }
 }
