@@ -22,9 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = $this->category->getAllCategory();
-
-        return response()->json($data, 200);
+        return response()->json($this->category->getAllCategory()->where('status', 'active'), 200);
     }
 
     /**
@@ -35,10 +33,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $data = $this->category->find($id);
-
-        if ($data) {
-            return response()->json(['data' => $data], 200);
+        if ($this->category->find($id)) {
+            return response()->json(['data' => $this->category->find($id)->where('status', 'active')], 200);
         } else {
             return response()->json(['data' => ['message' => 'Categoria não encontrada!']], 404);
         }

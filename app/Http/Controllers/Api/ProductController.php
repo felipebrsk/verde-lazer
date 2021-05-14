@@ -23,9 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = $this->product->getAllProduct()->where('status', 'active');
-
-        return response()->json($data, 200);
+        return response()->json(['data' => $this->product->getAllProduct()->where('status', 'active')], 200);
     }
 
     /**
@@ -36,7 +34,14 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        
+        $data = $request->wantsJson();
+
+        try {
+            Product::create($data);
+            return response()->json(['data' => ['message' => 'O seu produto foi adicionado com sucesso! Obrigado.']], 200);
+        } catch (\Exception $e) {
+            return response()->json(['data' => ['message' => 'Erro.']], 500);
+        }
     }
 
     /**
